@@ -1,12 +1,12 @@
 //Team 2 - Enroute Systems
 //Poker Rock
 
-//Connection with MongoDB
 import { MongoClient } from 'mongodb'
 //import { mongoose } from 'mongoose'
-import io from 'socket.io-client'
-import fetch from 'isomorphic-fetch'
+//import io from 'socket.io-client'
+//import fetch from 'isomorphic-fetch'
 
+//connection with MongoDB
 //General URL for the mongoDB Connection
 //User: poker-rock-master
 //Password: j3T1bIQ2T6oWiOh5
@@ -45,9 +45,9 @@ export async function createUser(name, password, score = 5000){
 //Get data from a user
 export async function LogInUser(email, password){
     const client = await MongoClient.connect(url, {})
-    const db = client.db('cluster0')
-    const users = db.collection('users')
-    const findResult = await users.findOne({ email, password})
+    const db = client.db('Poker-Rock')
+    const users = db.collection('Users')
+    const findResult = await users.findOne({ name, password})
 
     //If the user does not exists, then an error message is shown
     //otherwise, the user can access to the main page.
