@@ -43,7 +43,7 @@ export async function createUser(name, password, score = 5000){
 }//End of createUSer
 
 //Get data from a user
-export async function LogInUser(email, password){
+export async function LogInUser(name, password){
     const client = await MongoClient.connect(url, {})
     const db = client.db('Poker-Rock')
     const users = db.collection('Users')
@@ -58,7 +58,7 @@ export async function LogInUser(email, password){
     }
     else{
         //console.log("Welcome")
-        return findResult.result.ok
+        return findResult
     }
     
 

@@ -1,8 +1,9 @@
+import styles from '../styles/Home.module.css'
 import React, {useState, useEffect } from 'react'
 import { getSession, signIn, signOut, useSession } from 'next-auth/client'
 
-
 export default function Home() {
+  //With the function session brings the current session.
   const [ session, loading ] = useSession()
   
   return <>
@@ -17,6 +18,7 @@ export default function Home() {
 </>
 
 }
+
 
 export async function getServerSideProps(context) {
   const session = await getSession(context)
@@ -47,4 +49,8 @@ export async function getServerSideProps(context) {
 
     </div>
   )
+
+
+
+
   */
