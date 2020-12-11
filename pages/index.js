@@ -1,24 +1,31 @@
 import styles from '../styles/Home.module.css'
 import React, {useState, useEffect } from 'react'
 import { getSession, signIn, signOut, useSession } from 'next-auth/client'
+import { render } from 'react-dom'
+import { useRouter } from 'next/router'
+
 
 export default function Home() {
   //With the function session brings the current session.
   const [ session, loading ] = useSession()
+  const router = useRouter()
   
-  return <>
-  {!session && <>
-    Not signed in <br/>
-    <button onClick={signIn}>Sign in</button>
-  </>}
-  {session && <>
-    Signed in as {session.user.name} <br/>
-    <button onClick={signOut}>Sign out</button>
-  </>}
-</>
+    return <>
+    {!session && <>
+      Not signed in <br/>
+      <button onClick={signIn}>Sign in</button>
+    </>} 
+    {session && <>
+      <span onClick={() => router.push('home')}>Click me</span><br/>
+      Signed in as {session.user.name} <br/>
+      <button onClick={signOut}>Sign out</button>
+      
+    </>}
+  </>
+//End of return/render
 
-}
 
+}//End of Home
 
 export async function getServerSideProps(context) {
   const session = await getSession(context)
@@ -30,27 +37,3 @@ export async function getServerSideProps(context) {
 }
 
 
-/*
-  return (
-    <div className={styles.container}>
-          
-          <form action="/api/user" method="POST">
-            <input type="text" name="name" placeholder="Email"/>
-            <input type="password" name="password" placeholder="Password"/>
-            <input type="submit" name="Login" value="Login"/>
-          </form>
-
-          <form action="/api/user" method="POST">
-            <input type="hidden" name="isNew" value="true" />
-            <input type="text" name="name" placeholder="Email"/>
-            <input type="password" name="password" placeholder="Password"/>
-            <input type="submit" name="Signup" value="Signup"/>
-          </form>
-
-    </div>
-  )
-
-
-
-
-  */

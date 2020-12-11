@@ -6,6 +6,13 @@ import { LogInUser, createUser } from '../user'
 const options = {
     providers: [
         Providers.Credentials({
+            pages: {
+                signIn: '/auth/signin',
+                signOut: '/auth/signout',
+                error: '/auth/error',
+                verifyRequest: '/auth/verify-request', 
+                newUser: null 
+              },
             name: 'User Name',
             credentials: {
                 username: { label: "User", type: "text", placeholder: "user name" },
@@ -13,9 +20,18 @@ const options = {
             },
             //Calls the LogInUser function from user in order to verify the existing user
             authorize: async (credentials) => {
+                
                 const user = await LogInUser(credentials.username, credentials.password)
-                console.log(user)
-                return Promise.resolve(user)
+                const reg_user = await createUser(credentials.username, credentials.password)
+
+                if(user == false){
+                    return Promise.resolve(reg_user)
+                }
+                else{
+                    return Promise.resolve(user)
+                }
+                    
+                
             }
     })
     ],
@@ -30,5 +46,7 @@ const options = {
     // Optional SQL or MongoDB database to persist users
     database: process.env.DATABASE_URL
 }//End of options
+
+
 
 export default (req, res) => NextAuth(req, res, options)

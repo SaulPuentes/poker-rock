@@ -6,14 +6,8 @@ import { MongoClient } from 'mongodb'
 //import io from 'socket.io-client'
 //import fetch from 'isomorphic-fetch'
 
-//connection with MongoDB
-//General URL for the mongoDB Connection
-//User: poker-rock-master
-//Password: j3T1bIQ2T6oWiOh5
-//Cluster: Poker-Rock
-//DataBase: Poker-Rock
-//Collections: Users, History
-const url = "mongodb+srv://poker-rock-master:j3T1bIQ2T6oWiOh5@poker-rock.scwog.mongodb.net/poker-rock"
+//connection with MongoDB using environment variables
+const url = process.env.DATABASE
 
 //Register new user, just be giving the name and password
 //the default score is set to 5000
@@ -30,11 +24,10 @@ export async function createUser(name, password, score = 5000){
     if(!findUser)
     { 
         const insertResult = await users.insertOne({name, password, score})
-        //console.log('insertResult: ', insertResult);
-        return insertResult.result.ok
+        return insertResult
     }
     else{
-        console.log("user already exists")
+        //console.log("user already exists")
         return false
         
     }
