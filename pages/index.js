@@ -1,48 +1,37 @@
-import { Layout, Spin, Avatar } from 'antd';
-import { LoadingOutlined, UserOutlined } from '@ant-design/icons';
-import styles from '../styles/Home.module.scss'
-import Countdown from './components/countdown'
+import React from 'react'
+import { getSession, signIn, signOut, useSession } from 'next-auth/client'
+import { useRouter } from 'next/router'
 
-const { Header, Sider, Content } = Layout;
-
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-
-const data = [
-  {
-    name: 'Username 1',
-  },
-  {
-    name: 'Username 2',
-  },
-  {
-    name: 'Username 3',
-  },
-  {
-    name: 'Username 4',
-  },
-];
 
 export default function Home() {
-  return (
-    <Layout>
-      <Header className={styles.header}>POKER ROCK</Header>
-      <Layout>
-        <Content className={styles.content}>
-          <div className={styles.waitingTitle}>
-            <Spin indicator={antIcon} />
-            Waiting for other players
-          </div>
-          <Countdown />
-          <ul className={styles.playersList}>
-            {data.map(item => (
-              <li><Avatar shape="square" size="large" icon={<UserOutlined />} />{item.name}</li>
-            ))}
-          </ul>
-        </Content>
-        <Sider className={styles.leaderboard}>
-          Leaderboard
-        </Sider>
-      </Layout>
-    </Layout>
-  )
+  //With the function session brings the current session.
+  const [ session, loading ] = useSession()
+  const router = useRouter()
+  
+    return <>
+    {!session && <>
+      Not signed in <br/>
+      <button onClick={signIn}>Sign in</button>
+    </>} 
+    {session && <>
+      <span onClick={() => router.push('home')}>Click me</span><br/>
+      Signed in as {session.user.name} <br/>
+      <button onClick={signOut}>Sign out</button>
+      
+    </>}
+  </>
+//End of return/render
+
+
+}//End of Home
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  return {
+    props:{ 
+      session
+    }
+  }
 }
+
+
