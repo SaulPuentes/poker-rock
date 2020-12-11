@@ -1,0 +1,43 @@
+.header {
+  height: 80px;
+  display: flex;
+  padding: 2rem;
+  display: flex;
+  color: white;
+  align-items: center;
+  background: #072932;
+}
+
+.content {
+  color: #fff;
+  padding: 2rem;
+  margin-right: 200px;
+  height: calc(100vh - 80px);
+  background: linear-gradient(180deg, #367146 0%, #297374 100%), #297374;
+
+  .waitingTitle {
+    display: flex;
+    align-items: center;
+    .ant-spin {
+      margin-right: 1rem;
+    }
+  }
+  .playersList {
+    padding-left: 0;
+    list-style-type: none;
+    li {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.leaderboard {
+  right: 0;
+  bottom: 0;
+  width: 200px;
+  color: white;
+  padding: 2rem;
+  height: calc(100% - 80px);
+  position: fixed;
+  background: #205051;
+}
