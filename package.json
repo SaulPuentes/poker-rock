@@ -24,5 +24,9 @@
     "react-table": "^7.6.2",
     "socket.io": "^3.0.4",
     "socket.io-client": "^3.0.4"
+  },
+  "devDependencies": {
+    "css-loader": "^5.0.1",
+    "style-loader": "^2.0.0"
   }
 }
