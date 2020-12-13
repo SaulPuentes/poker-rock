@@ -16,6 +16,7 @@ export default class Table {
     _currentTurnIndex = -1;
     _bet = 0;
 
+    
     /**
      * Provides a table setup for the given users.
      * @param {User[]} users The users to play poker.
@@ -27,10 +28,26 @@ export default class Table {
             let card = this._deck.nextCard();
             this._cards.push(card);
         }
+
+        users = ['Toño', 'Sebas', 'Saul'];
         // deal cards
-        this._players = users.forEach(u => new Player(u));
+        //this._players = users.forEach(u,i => new Player(u));
+        var a;
+        for(a=0; a<users.length; a++)
+        {   
+            let us = new Player(users[a]);
+            this._players.push(us);
+        }
+        console.log("players u", this._players)
+        
         this._players.forEach(p => p.giveCard(this._deck.nextCard()) );
         this._players.forEach(p => p.giveCard(this._deck.nextCard()) );
+
+
+        //this._players = new Player();
+        //this._players.giveCard(this._deck.nextCard());
+        //this._players.giveCard(this._deck.nextCard());
+
         Object.seal(this);
     }
 
