@@ -7,7 +7,8 @@ import { MongoClient } from 'mongodb'
 //import fetch from 'isomorphic-fetch'
 
 //connection with MongoDB using environment variables
-const url = process.env.DATABASE
+// FIXME - environment variable not being called
+const url = "mongodb+srv://poker-rock-master:j3T1bIQ2T6oWiOh5@poker-rock.scwog.mongodb.net/poker-rock";
 
 //Register new user, just be giving the name and password
 //the default score is set to 5000
@@ -49,7 +50,11 @@ export async function LogInUser(name, password){
         return false
         
     }
+<<<<<<< HEAD
     else{
+=======
+    else {
+>>>>>>> database
         //console.log("Welcome")
         return findResult
     }

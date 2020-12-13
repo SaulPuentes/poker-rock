@@ -1,5 +1,7 @@
-import React from 'react'
 import { getSession, signIn, signOut, useSession } from 'next-auth/client'
+import styles from '../styles/Home.module.css'
+import React, {useState, useEffect } from 'react'
+import { render } from 'react-dom'
 import { useRouter } from 'next/router'
 
 

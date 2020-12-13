@@ -1,52 +1,48 @@
-import NextAuth from 'next-auth'
-import Providers from 'next-auth/providers'
-import { LogInUser, createUser } from '../user' 
+import NextAuth from 'next-auth';
+import Providers from 'next-auth/providers';
+import { LogInUser, createUser } from '../user';
 
-//Brings the data from the form, using the Provider by Credentials
-const options = {
+// TODO - JSDoc comment this
+const authorizeCredentials = async (credentials) => {
+    const user = LogInUser(credentials.username, credentials.password); // TODO - Call read user function form userController
+    if(user) {
+        return Promise.resolve(user);
+    }
+    else {
+        const newUser = createUser(credentials.username, credentials.password); // TODO - Call create user function form userController
+        if(newUser) {
+            console.log('newUser:' + newUser);
+            return Promise.resolve(newUser);
+        }
+    }
+    console.log('AAAAAAAAAAAA');
+    return Promise.resolve(null);
+};
+
+// TODO - JSDoc comment this
+const providerCredentialOptions = {
+    name: 'Username',
+    credentials: {
+        username: {
+            label: "Username",
+            type: "text",
+            placeholder: "Username"
+        },
+        password: {
+            label: "Password",
+            type: "Password",
+            placeholder: "Password"
+        }
+    },
+    authorize: authorizeCredentials
+};
+
+// TODO - JSDoc comment this
+const nextAuthOptions = {
     providers: [
-        Providers.Credentials({
-            pages: {
-                signIn: '/auth/signin',
-                signOut: '/auth/signout',
-                error: '/auth/error',
-                verifyRequest: '/auth/verify-request', 
-                newUser: null 
-              },
-            name: 'User Name',
-            credentials: {
-                username: { label: "User", type: "text", placeholder: "user name" },
-                password: {  label: "Password", type: "password" }
-            },
-            //Calls the LogInUser function from user in order to verify the existing user
-            authorize: async (credentials) => {
-                
-                const user = await LogInUser(credentials.username, credentials.password)
-                const reg_user = await createUser(credentials.username, credentials.password)
+        Providers.Credentials(providerCredentialOptions)
+    ]
+};
 
-                if(user == false){
-                    return Promise.resolve(reg_user)
-                }
-                else{
-                    return Promise.resolve(user)
-                }
-                    
-                
-            }
-    })
-    ],
-    session: {
-        jwt: true
-    },
-    jwt: {
-        secret: 'supercalifragilisticoespiralidoso'
-    },
-    debug: true,
-
-    // Optional SQL or MongoDB database to persist users
-    database: process.env.DATABASE_URL
-}//End of options
-
-
-
-export default (req, res) => NextAuth(req, res, options)
+// TODO - JSDoc comment this
+export default (req, res) => NextAuth(req, res, nextAuthOptions);
