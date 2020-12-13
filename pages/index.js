@@ -7,38 +7,17 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const contentAttributes = {
   style: {
-  }
-}
-
-const siderAttributes = {
-  style: {
-    flexGrow: '1', // FIXME - flexGrow and maxWidth are not working
-    maxWidth: 'none'
-  }
-}
-
-const footerAttributes = {
-  style: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
   }
 }
 
 export default function index() {
   return (
-    <Layout>
-      <Header>
-        Header
-      </Header>
-      <Layout>
-        <Content {...contentAttributes}>
-          <Session />
-        </Content>
-        <Sider {...siderAttributes}>
-          <LogIn />
-        </Sider>
-      </Layout>
-      <Footer {...footerAttributes}>
-        Footer
-      </Footer>
-    </Layout>
+    <Content {...contentAttributes} >
+      <LogIn />
+    </Content>
   );
 }

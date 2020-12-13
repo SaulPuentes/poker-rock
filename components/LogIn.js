@@ -9,7 +9,8 @@ import 'antd/dist/antd.css';
 const cardAttributes = {
     hoverable: true,
     style: {
-        margin: '0 10%'
+        margin: '0 10%',
+        width: '250px'
     }
 };
 
@@ -61,6 +62,14 @@ const loginButtonAttributes = {
     className: 'login-form-button'
 };
 
+const registerButtonAttributes = {
+    type: 'secondary',
+    style: {
+        margin: '0 5%'
+    },
+    onClick: signIn
+};
+
 export default class LogIn extends React.Component {
     render = () => 
     <Card {...cardAttributes} >
@@ -73,7 +82,10 @@ export default class LogIn extends React.Component {
         </Form.Item>
         <Form.Item>
             <Button {...loginButtonAttributes}>
-            Log in
+                Log in
+            </Button>
+            <Button {...registerButtonAttributes}>
+                Register
             </Button>
         </Form.Item>
         </Form>
