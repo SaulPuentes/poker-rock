@@ -4,6 +4,7 @@ import { Form, Input, Button, Card } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
+// TODO - Add Session tracking
 //const session = useSession();
 
 const cardAttributes = {
@@ -19,7 +20,11 @@ const formAttributes = {
     className: "login-form",
     onFinish: (values) => {
         // FIXME - Use credentials
-        signIn();
+        const credentials = {
+            username: values.username,
+            password: values.password
+        };
+        signIn('credentials', credentials);
     }
 };
 
@@ -56,7 +61,7 @@ const passwordAttributes = {
     }
 };
 
-const loginButtonAttributes = {
+const singInButtonAttributes = {
     type: 'primary',
     htmlType: 'submit',
     className: 'login-form-button'
@@ -81,8 +86,8 @@ export default class LogIn extends React.Component {
             <Input.Password {...passwordAttributes.input} />
         </Form.Item>
         <Form.Item>
-            <Button {...loginButtonAttributes}>
-                Log in
+            <Button {...singInButtonAttributes}>
+                Sign in
             </Button>
             <Button {...registerButtonAttributes}>
                 Register
