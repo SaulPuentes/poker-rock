@@ -1,39 +1,23 @@
-import styles from '../styles/Home.module.css'
-import React, {useState, useEffect } from 'react'
-import { getSession, signIn, signOut, useSession } from 'next-auth/client'
-import { render } from 'react-dom'
-import { useRouter } from 'next/router'
-
-
-export default function Home() {
-  //With the function session brings the current session.
-  const [ session, loading ] = useSession()
-  const router = useRouter()
+import React from 'react';
+import LogIn from '../components/LogIn';
+import Session from '../components/Session';
+import { Layout } from 'antd';
   
-    return <>
-    {!session && <>
-      Not signed in <br/>
-      <button onClick={signIn}>Sign in</button>
-    </>} 
-    {session && <>
-      <span onClick={() => router.push('home')}>Click me</span><br/>
-      Signed in as {session.user.name} <br/>
-      <button onClick={signOut}>Sign out</button>
-      
-    </>}
-  </>
-//End of return/render
+const { Header, Footer, Sider, Content } = Layout;
 
-
-}//End of Home
-
-export async function getServerSideProps(context) {
-  const session = await getSession(context)
-  return {
-    props:{ 
-      session
-    }
+const contentAttributes = {
+  style: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
   }
 }
 
-
+export default function index() {
+  return (
+    <Content {...contentAttributes} >
+      <LogIn />
+    </Content>
+  );
+}
