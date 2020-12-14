@@ -6,8 +6,14 @@ import { MongoClient } from 'mongodb'
 //import io from 'socket.io-client'
 //import fetch from 'isomorphic-fetch'
 
-//connection with MongoDB using environment variables
-const url = process.env.DATABASE
+//connection with MongoDB
+//General URL for the mongoDB Connection
+//User: poker-rock-master
+//Password: j3T1bIQ2T6oWiOh5
+//Cluster: Poker-Rock
+//DataBase: Poker-Rock
+//Collections: Users, History
+const url = "mongodb+srv://poker-rock-master:j3T1bIQ2T6oWiOh5@poker-rock.scwog.mongodb.net/poker-rock"
 
 //Register new user, just be giving the name and password
 //the default score is set to 5000
@@ -49,7 +55,7 @@ export async function LogInUser(name, password){
         return false
         
     }
-    else{
+    else {
         //console.log("Welcome")
         return findResult
     }
