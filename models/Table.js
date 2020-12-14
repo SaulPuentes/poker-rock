@@ -29,7 +29,7 @@ export default class Table {
             this._cards.push(card);
         }
 
-        users = ['Toño', 'Sebas', 'Saul'];
+        users = ['Toño', 'Sebas', 'Saul', 'Javier'];
         // deal cards
         //this._players = users.forEach(u,i => new Player(u));
         var a;

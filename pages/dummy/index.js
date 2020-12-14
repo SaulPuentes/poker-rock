@@ -67,8 +67,6 @@ export default function Dummy(){
 
 
 
-
-
         <p>Player 1 Cards</p>
         <ul>
             {
@@ -95,9 +93,6 @@ export default function Dummy(){
                 )
             }
         </ul>
-
-
-
 
 
 
