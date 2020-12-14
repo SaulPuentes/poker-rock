@@ -43,9 +43,11 @@ export default class Player {
      * @return {boolean} ```True``` when assigned, ```false``` otherwise;
      */
     giveCard(card) {
-        if(this._cards.length > 2) {
+        //                    >
+        if(this._cards.length < 2) {
             this._cards.push(card);
-            return true;
+            //return true;
+            return this._cards
         }
         return false;
     }

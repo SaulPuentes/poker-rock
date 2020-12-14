@@ -38,7 +38,7 @@ export default class Enum {
      */
     add(value) {
         if(this.isClosed) {
-            throw Error('Cannot instanciate after enumration is closed.');
+            throw Error('Cannot instanciate after enumeration is closed.');
         } else {
             this._values.push(value);
         }
