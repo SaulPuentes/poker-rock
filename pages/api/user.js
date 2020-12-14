@@ -50,11 +50,7 @@ export async function LogInUser(name, password){
         return false
         
     }
-<<<<<<< HEAD
-    else{
-=======
     else {
->>>>>>> database
         //console.log("Welcome")
         return findResult
     }
