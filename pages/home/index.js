@@ -32,7 +32,7 @@ export default function Home() {
             <Spin indicator={antIcon} />
             Waiting for other players
           </div>
-          <Countdown />
+          <Countdown seconds={30} minutes={0}/>
           <ul className={styles.playersList}>
             {data.map(item => (
               <li><Avatar shape="square" size="large" icon={<UserOutlined />} />{item.name}</li>

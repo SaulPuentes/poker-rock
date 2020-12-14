@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-const Countdown = () => {
-  
-  const [minutes, setMinutes] = useState(1);
-  const [seconds, setSeconds] = useState(0);
+const Countdown = (props) => {
+  const [minutes, setMinutes] = useState(props.minutes);
+  const [seconds, setSeconds] = useState(props.seconds);
 
   useEffect(() => {
     const myInterval = setInterval(() => {
@@ -20,6 +19,7 @@ const Countdown = () => {
           }
       } 
     }, 1000)
+
     return () => clearInterval(myInterval);
   })
 
