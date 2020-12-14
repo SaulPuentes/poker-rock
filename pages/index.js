@@ -1,6 +1,9 @@
 import React from 'react'
 import useSWR from 'swr'
 import { getSession, signIn, signOut, useSession } from 'next-auth/client'
+import styles from '../styles/Home.module.scss'
+import React, {useState, useEffect } from 'react'
+import { render } from 'react-dom'
 import { useRouter } from 'next/router'
 
 const fetcher = url => fetch(url).then(r => r.json())
