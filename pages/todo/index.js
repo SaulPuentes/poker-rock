@@ -38,13 +38,24 @@ export default function TodoApp(){
       text,
       id: Date.now()
     };
-    axios.post('http://localhost:8080/add-task', { item: newItem })
-    .then(res => {
-      console.log('received by server')
-    })
-    .catch(error => {
-      throw error
-    })
+    try {
+      const response = await fetch('http://localhost:8080/add-task', 
+        { method: 'POST',
+          headers: {
+            'accept': 'application/json, text/plain, */*',
+            'accept-language': 'es-ES,es;q=0.9',
+            'content-type': 'application/json;charset=UTF-8',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-origin'
+          },
+          body: JSON.stringify({ item: newItem 
+        })
+      })
+      console.log('response: ', response);
+    } catch (error) {
+      console.log('error: ', error);
+    }
     setText('');
   }
 
