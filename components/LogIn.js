@@ -1,98 +1,53 @@
 import React from 'react'
 import { signIn, signOut, useSession } from 'next-auth/client';
-import { Form, Input, Button, Card } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Result, Button, Card } from 'antd';
 import 'antd/dist/antd.css';
-
-// TODO - Add Session tracking
-//const session = useSession();
 
 const cardAttributes = {
     hoverable: true,
     style: {
         margin: '0 10%',
-        width: '250px'
+        width: '500px'
     }
 };
 
-const formAttributes = {
-    name: "normal_login",
-    className: "login-form",
-    onFinish: (values) => {
-        // FIXME - Use credentials
-        const credentials = {
-            username: values.username,
-            password: values.password
-        };
-        signIn('credentials', credentials);
-    }
-};
-
-const usernameAttributes = {
-    formItem: {
-        name: "username",
-        rules: [
-            {
-                required: true,
-                message: 'Please input your Username!',
-            }
-        ]
-    },
-    input: {
-        prefix: <UserOutlined className="site-form-item-icon" />,
-        placeholder: "Username"
-    }
-};
-
-const passwordAttributes = {
-    formitem: {
-        name: "password",
-        rules: [
-            {
-                required: true,
-                message: 'Please input your Password!',
-            }
-        ]
-    },
-    input: {
-        prefix: <LockOutlined className="site-form-item-icon" />,
-        type: "password",
-        placeholder: "Password"
-    }
+const getResultAttributes = (username = null) => {
+    const loggedIn = username != null;
+    return {
+        status: (loggedIn)? 'success' : 'warning',
+        title: (loggedIn)? `Welcome!` : 'Not signed in.',
+        subTitle:(loggedIn)? 'Successfully signed in.' : 'Please sign in before continue.'
+    };
 };
 
 const singInButtonAttributes = {
     type: 'primary',
-    htmlType: 'submit',
-    className: 'login-form-button'
-};
-
-const registerButtonAttributes = {
-    type: 'secondary',
-    style: {
-        margin: '0 5%'
-    },
+    className: 'login-form-button',
     onClick: signIn
 };
 
-export default class LogIn extends React.Component {
-    render = () => 
-    <Card {...cardAttributes} >
-        <Form {...formAttributes} >
-        <Form.Item {...usernameAttributes.formItem} >
-            <Input {...usernameAttributes.input} />
-        </Form.Item>
-        <Form.Item  {...passwordAttributes.formitem}>
-            <Input.Password {...passwordAttributes.input} />
-        </Form.Item>
-        <Form.Item>
+const singOutButtonAttributes = {
+    type: 'secondary',
+    className: 'login-form-button',
+    style: {
+        margin: '0 5%'
+    },
+    onClick: signOut
+};
+
+export default function LogIn() {
+    const session = useSession();
+    console.log(session);
+    const resultAttributes =  getResultAttributes(session.username);
+    return ( 
+        <Card {...cardAttributes} >
+            <Result {...resultAttributes}/>
             <Button {...singInButtonAttributes}>
                 Sign in
             </Button>
-            <Button {...registerButtonAttributes}>
-                Register
+            <Button {...singOutButtonAttributes}>
+                Sign out
             </Button>
-        </Form.Item>
-        </Form>
-    </Card>
+        </Card>
+    );
 };
