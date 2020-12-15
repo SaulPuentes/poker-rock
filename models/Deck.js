@@ -16,8 +16,9 @@ export default class Deck {
         this._cards = [];
         for(let r in Rank.enum.values) {
             for(let s in Suit.enum.values) {
-                
-                let card = new Card(Suit.enum.values[s]._value, Rank.enum.values[r]._value);
+                let rank = Rank.enum.values[r];
+                let suit = Suit.enum.values[s];
+                let card = new Card(suit, rank);
                 this._cards.push(card);
             }
         }

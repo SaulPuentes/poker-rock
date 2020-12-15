@@ -8,7 +8,6 @@ export default class Card {
 
     _suit = undefined;
     _rank = undefined;
-    _img = undefined;
 
     /**
      * @constructor Provides a new inmutable card.
@@ -18,9 +17,6 @@ export default class Card {
     constructor(suit, rank) {
         this._suit = suit;
         this._rank = rank;
-
-        this._img = '/img/' + this._rank + '' + this._suit + ".jpg";
-
         Object.freeze(this);
     }
 
@@ -40,8 +36,8 @@ export default class Card {
         return this._rank;
     }
 
-    get path(){ 
-        return _img;
+    get path() { 
+        return `/img/${this._rank.value}${this._suit.value}.jpg`;
     }
 
 }
