@@ -51,5 +51,5 @@ export const onUpdate = async function(game) {
 };
 
 export const onDelete = async function(game) {
-    // TODO - delete game
+    // TODO - delete gamee
 };
