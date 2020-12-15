@@ -12,21 +12,24 @@ export default function Dummy(){
     const table = new Table();
     const player = new Player();
 
-    console.log("table", table._cards);
-    console.log("table_1", table._cards[0]._img)
-    console.log(deck.count);
-    //console.log("deck",deck._cards);
-    console.log("one",deck._cards[5]._img);
-    //console.log(deck.nextCard());
-    console.log("shuffle", deck.shuffle());
-    //const path = '../../PNG/3S.png'
-    const path = deck._cards[6]._img;
+    console.log("table", table._cards); //Cards given to the table
+    //console.log("table_1", table._cards[0]._img) //Path of the first image of the table
+    //console.log(deck.count); //Number of cards in deck
+    //console.log("deck",deck._cards); //Cards in the deck
+    //console.log("one",deck._cards[5]._img); //Bring one card and show its path
+    //console.log(deck.nextCard()); //Which one is the next card to be draw from the deck
+    console.log("shuffle", deck.shuffle()); //Shows the array of cards ordered randomly
+    //const path = deck._cards[6]._img;
+
     //<Image src ={table._cards[0]._img} width = {60} height = {100} />
     //<Image src ={path} width={60} height={100}/>
 
     //console.log("player",table._players._cards)
-
-    console.log("table players", table._players);
+    console.log("Movements", table.shouldAddCard());
+    console.log("Movements", table.shouldAddCard()); //Result of function shouldAddCard
+    console.log("table", table._cards);
+    console.log("table players", table._players); //Show the current players in game
+    console.log("End", table.gameEnds());
 
     return<>
         <h2>Table Cards</h2>
