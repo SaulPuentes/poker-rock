@@ -1,6 +1,7 @@
 import React from 'react'
-import { signIn, signOut, useSession } from 'next-auth/client';
-import { Form, Result, Button, Card } from 'antd';
+import { signIn, signOut, useSession, getSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import { Result, Button, Card } from 'antd';
 import 'antd/dist/antd.css';
 
 const cardAttributes = {
@@ -11,13 +12,31 @@ const cardAttributes = {
     }
 };
 
-const getResultAttributes = (username = null) => {
-    const loggedIn = username != null;
-    return {
-        status: (loggedIn)? 'success' : 'warning',
-        title: (loggedIn)? `Welcome!` : 'Not signed in.',
-        subTitle:(loggedIn)? 'Successfully signed in.' : 'Please sign in before continue.'
-    };
+const getResultAttributes = () => {
+    const [ session, loading ] = useSession();
+    if(loading) {
+        return {
+            status: 'info',
+            title: 'Loading...',
+            subTitle: 'This might take a couple seconds.'
+        };
+    } else if(session == null) {
+        return {
+            status: 'error',
+            title: 'Not signed in.',
+            subTitle: 'Please sign in before continue.'
+        };
+    } else {
+        const router = useRouter();
+        if (typeof window !== 'undefined') {
+            router.push('/home');
+        };
+        return {
+            status: 'success',
+            title: `Welcome ${session.user.name}!`,
+            subTitle: 'Successfully signed in.'
+        };
+    }
 };
 
 const singInButtonAttributes = {
@@ -36,10 +55,8 @@ const singOutButtonAttributes = {
 };
 
 export default function LogIn() {
-    const session = useSession();
-    console.log(session);
-    const resultAttributes =  getResultAttributes(session.username);
-    return ( 
+    const resultAttributes = getResultAttributes();
+    return (
         <Card {...cardAttributes} >
             <Result {...resultAttributes}/>
             <Button {...singInButtonAttributes}>
@@ -51,3 +68,12 @@ export default function LogIn() {
         </Card>
     );
 };
+
+export async function getServerSideProps(context) {
+    const session = await getSession(context);
+    return {
+        props: {
+            session
+        }
+    }
+}
