@@ -3,13 +3,37 @@ import * as gameController from '../../controllers/gameController';
 
 const getController = (name) => {
     switch(name) {
-        case 'user':
-            return userController;
-        case 'game':
-            return gameController;
-        default:
-            return null;
-    }
+        case 'user': return userController;
+        case 'game': return gameController;
+        default: return null;
+    };
+};
+
+const GET = async (controller, req, res) => {
+    const result = await controller.onRead(req.query);
+    const code = result.success? 200 : 404; // OK | Not Found
+    const data = result.success? result.data : {};
+    return res.status(code).json(data);
+};
+
+const POST = async (controller, req, res) => {
+    const result = await controller.onCreate(req.body);
+    const code = result.success? 201 : 400; // OK | Bad request
+    const data = result.success? result.data : {};
+    return res.status(code).json(data);
+};
+
+const PATCH = async (controller, req, res) => {
+    const result = await controller.onUpdate(req.body);
+    const code = result.success? 200 : 404; // OK | Not found
+    const data = result.success? result.data : {};
+    return res.status(code).json(data);
+};
+
+const DELETE = async (controller, req, res) => {
+    return await controller.onDelete(req.body).then(
+        fullfilled => res.status(204).json(fullfilled), // No content
+        rejeted => res.status(400).json(rejeted)); // Bad request
 }
 
 export default async function handler(req, res) {
@@ -25,22 +49,10 @@ export default async function handler(req, res) {
     }
     // call method
     switch(req.method) {
-        case 'GET':
-            return await controller.onRead(req.query).then(
-                fullfilled => res.status(200).json(fullfilled), // Ok
-                rejeted => res.status(404).json(rejeted)); // Not found
-        case 'POST':
-            return await controller.onCreate(req.body).then(
-                fullfilled => res.status(201).json(fullfilled), // Created
-                rejeted => res.status(40).json(rejeted)); // Bad request
-        case 'PATCH':
-            return await controller.onUpdate(req.body).then(
-                fullfilled => res.status(200).json(fullfilled), // Ok
-                rejeted => res.status(404).json(rejeted)); // Not found
-        case 'DELETE':
-            return await controller.onDelete(req.body).then(
-                fullfilled => res.status(204).json(fullfilled), // No content
-                rejeted => res.status(400).json(rejeted)); // Bad request
+        case 'GET': return GET(controller, req, res);
+        case 'POST': return POST(controller, req, res)
+        case 'PATCH': return PATCH(controller, req, res);
+        case 'DELETE': return DELETE(controller, req, res);
         default:
             return await res.status(405).json({
                 error: 'Method Not Allowed',
