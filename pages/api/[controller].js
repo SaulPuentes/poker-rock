@@ -1,5 +1,5 @@
-import * as userController from '../../../controllers/userController';
-import * as gameController from '../../../controllers/gameController';
+import * as userController from '../../controllers/userController';
+import * as gameController from '../../controllers/gameController';
 
 const getController = (name) => {
     switch(name) {

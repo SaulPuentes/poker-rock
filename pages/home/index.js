@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import styles from '../../styles/Home.module.scss'
-import Lobby from '../components/lobby'
-import GameTable from '../components/gameTable'
+import Lobby from '../../components/lobby'
+import GameTable from '../../components/gameTable'
 
 const { Header, Sider, Content } = Layout;
 

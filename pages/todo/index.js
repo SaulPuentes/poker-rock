@@ -1,6 +1,6 @@
 import React, {useEffect, useState } from 'react'
 import Pusher from 'pusher-js'
-import axios from 'axios'
+import { apiTodo } from '../../util/request'
 
 const pusher = new Pusher('18af7ca777e2024297da', {
   cluster: 'mt1'
@@ -38,24 +38,7 @@ export default function TodoApp(){
       text,
       id: Date.now()
     };
-    try {
-      const response = await fetch('http://localhost:8080/add-task', 
-        { method: 'POST',
-          headers: {
-            'accept': 'application/json, text/plain, */*',
-            'accept-language': 'es-ES,es;q=0.9',
-            'content-type': 'application/json;charset=UTF-8',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-origin'
-          },
-          body: JSON.stringify({ item: newItem 
-        })
-      })
-      console.log('response: ', response);
-    } catch (error) {
-      console.log('error: ', error);
-    }
+    await apiTodo({ item: newItem });
     setText('');
   }
 

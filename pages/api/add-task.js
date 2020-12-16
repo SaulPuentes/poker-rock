@@ -9,8 +9,8 @@ const pusher = new Pusher({
 })
 
 export default (req, res) => {
+  pusher.trigger('poker-rock', 'new-task', req.body)
+  
   res.statusCode = 200
-  pusher.trigger('poker-rock', 'call', req.body)
-  console.log('req.body: ', req.body);
   res.json({ hello: 'world' })
 }

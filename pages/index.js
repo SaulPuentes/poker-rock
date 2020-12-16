@@ -1,6 +1,5 @@
 import React from 'react';
 import LogIn from '../components/LogIn';
-import Session from '../components/Session';
 import { Layout } from 'antd';
   
 const { Header, Footer, Sider, Content } = Layout;

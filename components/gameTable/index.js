@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'antd'
 import Player from '../player'
-import { apiMove } from './api'
+import { apiMove } from '../../util/request'
 
 
 /**
@@ -29,7 +29,7 @@ const myPlayer = {
   username: 'Tony Stark'
 }
 
-export default function() {
+function GameTable() {
   const handleCall = async () => {
     await apiMove('call', { user: myPlayer.username })
   }
@@ -56,3 +56,5 @@ export default function() {
     </div>
   </>)
 }
+
+export default GameTable;

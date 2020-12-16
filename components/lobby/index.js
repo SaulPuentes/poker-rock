@@ -1,6 +1,6 @@
 import React from 'react'
 import { Spin, Avatar } from 'antd'
-import styles from '../../../styles/Home.module.scss'
+import styles from './Lobby.module.scss'
 import { LoadingOutlined, UserOutlined } from '@ant-design/icons'
 import Countdown from '../countdown'
 
@@ -22,7 +22,7 @@ const data = [
   },
 ];
 
-export default function() {
+function Lobby() {
   return <>
     <div className={styles.waitingTitle}>
       <Spin indicator={antIcon} />
@@ -36,3 +36,5 @@ export default function() {
     </ul>
   </>
 }
+
+export default Lobby;
