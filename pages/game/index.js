@@ -1,6 +1,6 @@
 import { Layout } from 'antd';
 import styles from '../../styles/Home.module.scss'
-import Lobby from '../../components/lobby'
+import Game from '../../components/game'
 
 const { Header, Sider, Content } = Layout;
 
@@ -10,7 +10,7 @@ export default function Home() {
       <Header className={styles.header}>POKER ROCK</Header>
       <Layout>
         <Content className={styles.content}>
-          <Lobby />
+          <Game />
         </Content>
         <Sider className={styles.leaderboard}>
           Leaderboard

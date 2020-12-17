@@ -1,12 +1,6 @@
 import React, {useEffect, useState } from 'react'
-import Pusher from 'pusher-js'
-import axios from 'axios'
-
-const pusher = new Pusher('18af7ca777e2024297da', {
-  cluster: 'mt1'
-})
-
-const channel = pusher.subscribe('poker-rock')
+import { gameChannel } from '../../util/channel'
+import { apiTodo } from '../../util/request'
 
 export default function TodoApp(){
 
@@ -19,7 +13,7 @@ export default function TodoApp(){
 
 
   const receiveUpdateFromPusher = () => {
-    channel.bind('new-task', data => {
+    gameChannel.bind('new-task', data => {
       if (!items.includes(data.item))
         setItems([...items, data.item])
     })
@@ -38,24 +32,7 @@ export default function TodoApp(){
       text,
       id: Date.now()
     };
-    try {
-      const response = await fetch('http://localhost:8080/add-task', 
-        { method: 'POST',
-          headers: {
-            'accept': 'application/json, text/plain, */*',
-            'accept-language': 'es-ES,es;q=0.9',
-            'content-type': 'application/json;charset=UTF-8',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-origin'
-          },
-          body: JSON.stringify({ item: newItem 
-        })
-      })
-      console.log('response: ', response);
-    } catch (error) {
-      console.log('error: ', error);
-    }
+    await apiTodo({ item: newItem });
     setText('');
   }
 
@@ -78,7 +55,7 @@ export default function TodoApp(){
     </form>    
   </>
   )
-}//End of Home
+}
 
 
 function TodoList(props){
@@ -90,4 +67,4 @@ function TodoList(props){
     </ul>
   </>
 
-}//End of TodoList
+}

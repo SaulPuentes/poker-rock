@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 const Countdown = (props) => {
+  const router = useRouter();
   const [minutes, setMinutes] = useState(props.minutes);
   const [seconds, setSeconds] = useState(props.seconds);
 
@@ -13,6 +15,8 @@ const Countdown = (props) => {
       if (seconds === 0) {
           if (minutes === 0) {
               clearInterval(myInterval)
+              router.push('/game');
+              props.callback()
           } else {
             setMinutes(minutes - 1);
             setSeconds(59);
