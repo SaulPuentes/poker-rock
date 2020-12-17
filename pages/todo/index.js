@@ -1,12 +1,6 @@
 import React, {useEffect, useState } from 'react'
-import Pusher from 'pusher-js'
+import { gameChannel } from '../../util/channel'
 import { apiTodo } from '../../util/request'
-
-const pusher = new Pusher('18af7ca777e2024297da', {
-  cluster: 'mt1'
-})
-
-const channel = pusher.subscribe('poker-rock')
 
 export default function TodoApp(){
 
@@ -19,7 +13,7 @@ export default function TodoApp(){
 
 
   const receiveUpdateFromPusher = () => {
-    channel.bind('new-task', data => {
+    gameChannel.bind('new-task', data => {
       if (!items.includes(data.item))
         setItems([...items, data.item])
     })
@@ -61,7 +55,7 @@ export default function TodoApp(){
     </form>    
   </>
   )
-}//End of Home
+}
 
 
 function TodoList(props){
@@ -73,4 +67,4 @@ function TodoList(props){
     </ul>
   </>
 
-}//End of TodoList
+}

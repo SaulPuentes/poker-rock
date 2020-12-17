@@ -11,18 +11,18 @@
 .content {
   color: #fff;
   padding: 2rem;
-  margin-right: 200px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 80px) !important;
+  margin-right: 200px !important;
   background: linear-gradient(180deg, #367146 0%, #297374 100%), #297374;
 }
 
 .leaderboard {
   right: 0;
   bottom: 0;
-  width: 200px;
   color: white;
+  width: 200px !important;
   padding: 2rem;
-  height: calc(100% - 80px);
+  height: calc(100% - 80px) !important;
   position: fixed;
   background: #205051;
 }

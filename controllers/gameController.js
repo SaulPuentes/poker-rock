@@ -1,5 +1,6 @@
-import connection from './mongoController';
 import { conclude } from './utilities';
+import connection from './mongoController';
+import { pusher } from '../util/pusher';
 
 export const onCreate = async function(game) {
     game = {
@@ -44,6 +45,10 @@ export const onUpdate = async function(game) {
     const filter = { _id: mongo.ObjectID(game._id) };
     const promise = mongo.collections.games.findOneAndUpdate(filter, update);
     const resolution = await conclude(promise);
+
+    record['date'] = new Date() // add date as identifier
+    pusher.trigger('poker-rock', 'new-movement', record)
+
     return {
         success: resolution.isFulfilled,
         data: Object.assign(game, resolution.detail?.value)
