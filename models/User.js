@@ -1,12 +1,21 @@
 
 export default class User {
 
+    _id = undefined;
     _name = undefined;
-    _score = 0;
+    _score = 5000;
     _password = undefined;
 
     constructor() {
         Object.seal(this);
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    set id(value) {
+        this._id = value;
     }
 
     get name() {
