@@ -16,7 +16,9 @@ export default class Deck {
         this._cards = [];
         for(let r in Rank.enum.values) {
             for(let s in Suit.enum.values) {
-                let card = new Card(s, r);
+                let rank = Rank.enum.values[r];
+                let suit = Suit.enum.values[s];
+                let card = new Card(suit, rank);
                 this._cards.push(card);
             }
         }
@@ -36,10 +38,17 @@ export default class Deck {
      * @returns {undefined} Nothing.
      */
     shuffle() {
+        /*
         for(let i = 0; i < this._cards.length; i++) {
             let j = Math.floor(Math.random() * this._cards.length);
-            this._cards[i], this._cards[j] = this._cards[j], this._cards[i];
+            
+            this._cards[i] = this._cards[j];
+            //this._cards[i], this._cards[j] = this._cards[j], this._cards[i];
         }
+        */
+       this._cards.sort(() => Math.random() -0.5)
+        
+        return this._cards
     }
 
     /**
@@ -47,7 +56,9 @@ export default class Deck {
      * @returns {Card | undefined} The next card in the deck, ```undefined``` when there are no more cards.
      */
     nextCard() {
-        return this._cards.slice(1)[0];
+        
+        //return this._cards.slice(1)[0];
+        return this._cards.pop();
     }
 
 }

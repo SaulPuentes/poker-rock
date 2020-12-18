@@ -11,10 +11,10 @@ export default class Suit {
      */
     static enum = new Enum();
 
-    static CLUBS = new Suit('Clubs');
-    static HEARTS = new Suit('Hearts');
-    static SPADES = new Suit('Spades');
-    static DIAMONDS = new Suit('Diamonds');
+    static CLUBS = new Suit('C');
+    static HEARTS = new Suit('H');
+    static SPADES = new Suit('S');
+    static DIAMONDS = new Suit('D');
 
     _value = undefined;
 

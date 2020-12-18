@@ -36,4 +36,8 @@ export default class Card {
         return this._rank;
     }
 
+    get path() { 
+        return `/img/${this._rank.value}${this._suit.value}.jpg`;
+    }
+
 }

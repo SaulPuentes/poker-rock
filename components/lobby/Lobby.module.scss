@@ -1,0 +1,14 @@
+.waitingTitle {
+  display: flex;
+  align-items: center;
+  .ant-spin {
+    margin-right: 1rem;
+  }
+}
+.playersList {
+  padding-left: 0;
+  list-style-type: none;
+  li {
+    margin-bottom: 10px;
+  }
+}
