@@ -4,38 +4,40 @@ import { useSession } from 'next-auth/client'
 import Player from '../player'
 import { addMove } from '../../util/request'
 import { gameChannel } from '../../util/channel'
+
 import Table from '../../models/Table'
 import Image from 'next/image'
 
-
-/**
- * TODO: Change users for all the logged in the app
- */
-const users =  [
-  {
-    username: 'Antonio',
-    score: 2000
-  },
-   {
-     username: 'Saul',
-     score: 2000
-   },
-   {
-     username: 'Sebas',
-    score: 2000
-   },
-  // The last player in this array should be my user for UI purposes
-  {
-    username: 'MyPlayer',
-    score: 2000
-  }
-]
 
 function Game() {
 
   const [ session, loading ] = useSession();
   const [ movements, setMovements ] = useState([]);
   const [ raiseValue, setRaiseValue ] = useState();
+
+    /**
+ * TODO: Change users for all the logged in the app
+ */
+  const users =  [
+    {
+      username: 'Toño',
+      score: 2000
+    },
+    {
+      username: 'Saul',
+      score: 2000
+    },
+    {
+      username: 'Sebas',
+      score: 2000
+    },
+    // The last player in this array should be my user for UI purposes
+    {
+      username: session.user.name,
+      score: 2000
+    }
+  ]
+
 
   useEffect(() => {
     receiveUpdatedMovements()
@@ -51,6 +53,7 @@ function Game() {
   
   // send request to the api game
   const handleMovement = async (movement, bet) => {
+    //TODO - Chage id for current id from database
     const data = await addMove({
       _id: '5fda30cf00095e6861701a58',
       record: {
@@ -65,33 +68,9 @@ function Game() {
   const renderPlayer = (user) =>
     <Player username={user.username} score={user.score}/>
   
-  // Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  
-  
+  //Dumy Test +++++++++++++++++++++++++++++++++++++++++++  
   const us = [session.user.name, "p2", "p3", "p4"]
   const table = new Table(us)
-
-  const playerCards = (
-    <>   
-      {       
-        table._players.map( (element,index) => element._cards.map((i,j) => 
-          <th key={j}><Image src ={i.path} width={60} height={120}/></th>
-        ))
-      }
-      
-    </>
-  )
-
-  const player1_Cards = (
-    <>
-      {
-        table._players[0]._cards.map((i,j) =>
-        <li key={j}><Image src ={i.path} width={60} height={120}/></li>
-        )
-      }
-    </>
-  )
-
     
   const tableCards = (
     <>
@@ -101,10 +80,8 @@ function Game() {
         )
       }
     </>
+  ) //End of tableCards
 
-  ) 
-
-  // Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   const actionButtons = (
     <>
@@ -120,39 +97,67 @@ function Game() {
     </>
   )
 
+  //Shows the current players, including the table, and their respective cards
   return (<>
     
     <Row gutter={[16, 16]}>
-      {
-        table._players[0]._cards.map((i,j) =>
-        <li key={j}><Image src ={i.path} width={60} height={120}/></li>
-        )
-      }
       { users.length > 1 && (
-        <Col offset={8} span={8}>{renderPlayer(users[0])}</Col>
+        <Col offset={8} span={8}>
+          {
+            table._players[0]._cards.map((i,j) =>
+              <th key={j}><Image src ={i.path} width={60} height={100}/></th>
+            )
+          }
+          {renderPlayer(users[0])}
+        </Col>
       )}
     </Row>
 
     <Row gutter={[16, 16]}>
       { users.length > 2 && ( 
-        <Col span={8}>{renderPlayer(users[1])}</Col>
+        <Col span={8}>
+          {
+            table._players[1]._cards.map((i,j) =>
+            <th key={j}><Image src ={i.path} width={60} height={100}/></th>
+            )
+          }
+          {renderPlayer(users[1])}
+        </Col>
       )}
 
       <Col span={8} offset={users.length === 2 && 8}>
         {tableCards}
         CENTER OF THE TABLE
       </Col>
+
       { users.length > 3 && (
-        <Col span={8}>{renderPlayer(users[2])}</Col>
+        <Col span={8}>
+          {
+            table._players[2]._cards.map((i,j) =>
+              <th key={j}><Image src ={i.path} width={60} height={100}/></th>
+            )
+          }
+          {renderPlayer(users[2])}
+        </Col>
       )}
-    </Row>
+    </Row>  
 
     <Row gutter={[16, 16]}>
-      <Col offset={8} span={8}>{renderPlayer(users[users.length-1])}</Col>
+
+      <Col offset={8} span={8}>
+        {
+          table._players[3]._cards.map((i,j) =>
+          <th th key={j}><Image src ={i.path} width={60} height={100}/></th>
+          )
+        }   
+        {renderPlayer(users[users.length-1])}
+        </Col>
       <Col span={8}>{ actionButtons }</Col>
     </Row>
     
-  </>)
-}
+  </>) //End of render return
+
+
+}//End of Game
 
 export default Game;

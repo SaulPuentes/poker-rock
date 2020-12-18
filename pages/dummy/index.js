@@ -68,10 +68,6 @@ export default function Dummy(){
 
 
 /*
-
-
-
-
         <p>Player 1 Cards</p>
         <ul>
             {
@@ -80,25 +76,5 @@ export default function Dummy(){
                 )
             }
         </ul>
-
-        <p>Player 2 Cards</p>
-        <ul>
-            {
-                table._players[1]._cards.map((i,j) =>
-                    <li key={j}><Image src ={i._img} width={60} height={120}/></li>
-                )
-            }
-        </ul>
-
-        <>Player 3 Cards</>
-        <ul>
-            {
-                table._players[2]._cards.map((i,j) =>
-                    <li key={j}><Image src ={i._img} width={60} height={120}/></li>
-                )
-            }
-        </ul>
-
-
 
 */
