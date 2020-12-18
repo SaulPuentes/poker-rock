@@ -1,0 +1,134 @@
+{
+  "id": "1e759236-8d12-41b6-9fed-b040d4f706f7",
+  "version": "2.0",
+  "name": "Poker-Rock",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "f66f5a0d-32ea-437e-b5d4-4ff8dcde4738",
+    "name": "Login",
+    "commands": [{
+      "id": "288f0ebd-c40c-4f83-8192-c8b3b1e4fcdb",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3139a5f6-e3cd-4be4-a781-ad13e2865fda",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "550x691",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "530213a6-8ead-4414-af36-f2b4498cb33c",
+      "comment": "",
+      "command": "click",
+      "target": "css=button",
+      "targets": [
+        ["css=button", "css:finder"],
+        ["xpath=//div[@id='__next']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Sign in')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7886048e-f385-4d86-ba7e-ac4dcb0e3066",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=button",
+      "targets": [
+        ["css=button", "css:finder"],
+        ["xpath=//div[@id='__next']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Sign in')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5194a668-7e90-46a8-ac7e-d8c8e8117fc3",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=button",
+      "targets": [
+        ["css=button", "css:finder"],
+        ["xpath=//div[@id='__next']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Sign in')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "48e2ff5d-3b1f-4043-8275-d0e6ed568893",
+      "comment": "",
+      "command": "click",
+      "target": "id=input-username-for-credentials-provider",
+      "targets": [
+        ["id=input-username-for-credentials-provider", "id"],
+        ["name=username", "name"],
+        ["css=#input-username-for-credentials-provider", "css:finder"],
+        ["xpath=//input[@id='input-username-for-credentials-provider']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "aac6330b-a669-4e47-a04e-25289d3a11c8",
+      "comment": "",
+      "command": "type",
+      "target": "id=input-username-for-credentials-provider",
+      "targets": [
+        ["id=input-username-for-credentials-provider", "id"],
+        ["name=username", "name"],
+        ["css=#input-username-for-credentials-provider", "css:finder"],
+        ["xpath=//input[@id='input-username-for-credentials-provider']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "sebsmgzz"
+    }, {
+      "id": "29444bb0-c165-44dd-8643-483bc93f06b2",
+      "comment": "",
+      "command": "type",
+      "target": "id=input-password-for-credentials-provider",
+      "targets": [
+        ["id=input-password-for-credentials-provider", "id"],
+        ["name=password", "name"],
+        ["css=#input-password-for-credentials-provider", "css:finder"],
+        ["xpath=//input[@id='input-password-for-credentials-provider']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "hackme"
+    }, {
+      "id": "9204f2c1-73ae-4c44-8c72-72cfbc81b4e1",
+      "comment": "",
+      "command": "click",
+      "target": "css=button",
+      "targets": [
+        ["css=button", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Sign in with Username')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "953f1a4d-3e48-411e-b308-c5772d176132",
+      "comment": "",
+      "command": "click",
+      "target": "id=__next",
+      "targets": [
+        ["id=__next", "id"],
+        ["css=#\\__next", "css:finder"],
+        ["xpath=//div[@id='__next']", "xpath:attributes"],
+        ["xpath=//div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "3caac831-737d-43a1-bea6-9aee73992ec6",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}

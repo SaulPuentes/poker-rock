@@ -1,0 +1,28 @@
+.header {
+  height: 80px;
+  display: flex;
+  padding: 2rem;
+  display: flex;
+  color: white;
+  align-items: center;
+  background: #072932;
+}
+
+.content {
+  color: #fff;
+  padding: 2rem;
+  height: calc(100vh - 80px) !important;
+  margin-right: 200px !important;
+  background: linear-gradient(180deg, #367146 0%, #297374 100%), #297374;
+}
+
+.leaderboard {
+  right: 0;
+  bottom: 0;
+  color: white;
+  width: 200px !important;
+  padding: 2rem;
+  height: calc(100% - 80px) !important;
+  position: fixed;
+  background: #205051;
+}
