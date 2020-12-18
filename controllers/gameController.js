@@ -1,6 +1,8 @@
 import { conclude } from './utilities';
 import connection from './mongoController';
 import { pusher } from '../util/pusher';
+import Table from '../models/Table'
+
 
 export const onCreate = async function(game) {
     game = {
@@ -11,22 +13,38 @@ export const onCreate = async function(game) {
     const mongo = await connection();
     const promise = mongo.collections.games.insertOne(game);
     const resolution = await conclude(promise);
+    
+
     return {
+        table,
         success: resolution.isFulfilled,
-        data: Object.assign(game, resolution.data)
+        data: Object.assign(game, resolution.insertedId)
     };
-};
+};//End of onCreate
+
+
+
 
 export const onRead = async function(game) {
     const mongo = await connection();
     const filter = { _id: mongo.ObjectID(game._id) };
     const promise = mongo.collections.games.findOne(filter);
     const resolution = await conclude(promise);
+
+    // Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //table.winnerHand();
+
+    // Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
     return {
         success: resolution.isFulfilled,
         data: Object.assign(game, resolution.detail)
     };
-};
+};//End of onRead
+
+
+
 
 export const onUpdate = async function(game) {
     // read given game
@@ -38,6 +56,7 @@ export const onUpdate = async function(game) {
         player: game.record.player,
         bet: game.record.bet
     };
+
     // update game object with movement
     fullGame.movements.push(record);
     const update = { $set: { movements: fullGame.movements } };
@@ -53,7 +72,7 @@ export const onUpdate = async function(game) {
         success: resolution.isFulfilled,
         data: Object.assign(game, resolution.detail?.value)
     };
-};
+};//End of onUpdate
 
 export const onDelete = async function(game) {
     // TODO - delete gamee

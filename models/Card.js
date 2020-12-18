@@ -17,6 +17,7 @@ export default class Card {
     constructor(suit, rank) {
         this._suit = suit;
         this._rank = rank;
+        this._img = `/img/${this._rank}${this._suit}.jpg`
         Object.freeze(this);
     }
 
@@ -37,7 +38,7 @@ export default class Card {
     }
 
     get path() { 
-        return `/img/${this._rank.value}${this._suit.value}.jpg`;
+        return this._img;
     }
 
 }

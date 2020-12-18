@@ -1,7 +1,7 @@
 import { MongoClient, ObjectID } from 'mongodb'
 
 export default async function connection() {
-    const baseUrl = "mongodb+srv://poker-rock-master:j3T1bIQ2T6oWiOh5@poker-rock.scwog.mongodb.net/poker-rock";
+    const baseUrl = process.env.DATABASE;
     const client = await MongoClient.connect(baseUrl);
     const database = client.db('Poker-Rock');
     return {

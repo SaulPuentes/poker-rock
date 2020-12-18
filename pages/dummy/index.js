@@ -29,14 +29,14 @@ export default function Dummy(){
     console.log("Movements", table.shouldAddCard()); //Result of function shouldAddCard
     console.log("table", table._cards);
     console.log("table players", table._players); //Show the current players in game
-    console.log("End", table.gameEnds());
+    console.log("End", table.winnerHand());
 
     return<>
         <h2>Table Cards</h2>
         <table>
             {
                 table._cards.map((i,j) =>
-                    <th key={j}><Image src ={i._img} width={60} height={120}/></th>
+                    <th key={j}><Image src ={i.path} width={60} height={120}/></th>
                 )
             }
         </table>
@@ -47,7 +47,7 @@ export default function Dummy(){
 
             {  
                 table._players.map( (element,index) => element._cards.map((i,j) => 
-                <th key={j}><p>{table._players[index]._user}</p><Image src ={i._img} width={60} height={120}/></th>
+                <th key={j}><p>{table._players[index]._user}</p><Image src ={i.path} width={60} height={120}/></th>
                 ))
             }
 

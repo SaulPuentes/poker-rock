@@ -12,6 +12,7 @@ export default class Deck {
     /**
      * @constructor Provides a new ordered deck of 52 cards.
      */
+    /*
     constructor() {
         this._cards = [];
         for(let r in Rank.enum.values) {
@@ -24,6 +25,21 @@ export default class Deck {
         }
         Object.seal(this);
     }
+    */
+    
+
+    constructor() {
+        this._cards = [];
+        for(let r in Rank.enum.values) {
+            for(let s in Suit.enum.values) {
+                
+                let card = new Card(Suit.enum.values[s]._value, Rank.enum.values[r]._value);
+                this._cards.push(card);
+            }
+        }
+        Object.seal(this);
+    }
+    
 
     /**
      * @description The amount of cards left in the deck.

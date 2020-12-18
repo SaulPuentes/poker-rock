@@ -4,6 +4,9 @@ import { useSession } from 'next-auth/client'
 import Player from '../player'
 import { addMove } from '../../util/request'
 import { gameChannel } from '../../util/channel'
+import Table from '../../models/Table'
+import Image from 'next/image'
+
 
 /**
  * TODO: Change users for all the logged in the app
@@ -13,20 +16,21 @@ const users =  [
     username: 'Saul',
     score: 2000
   },
-  // {
-  //   username: 'Toño',
-  //   score: 2000
-  // },
-  // {
-  //   username: 'Toño',
-  //   score: 2000
-  // },
+   {
+     username: 'Toño',
+     score: 2000
+   },
+   {
+     username: 'Toño',
+    score: 2000
+   },
   // The last player in this array should be my user for UI purposes
   {
     username: 'MyPlayer',
     score: 2000
   }
 ]
+
 
 
 function Game() {
@@ -63,6 +67,21 @@ function Game() {
   const renderPlayer = (user) =>
     <Player username={user.username} score={user.score}/>
   
+  // Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const us = ["p1", "p2", "p3", "p4"]
+  const table = new Table(us)
+  const givenCards = (
+    <>   
+      {       
+        table._players.map( (element,index) => element._cards.map((i,j) => 
+          <th key={j}><Image src ={i.path} width={60} height={120}/></th>
+        ))
+      }
+      
+    </>
+  )
+
+  // Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   const actionButtons = (
     <>
@@ -85,6 +104,7 @@ function Game() {
         <Col offset={8} span={8}>{renderPlayer(users[0])}</Col>
       )}
     </Row>
+        
     <Row gutter={[16, 16]}>
       { users.length > 2 && (
         <Col span={8}>{renderPlayer(users[1])}</Col>
@@ -96,6 +116,7 @@ function Game() {
         <Col span={8}>{renderPlayer(users[2])}</Col>
       )}
     </Row>
+
     <Row gutter={[16, 16]}>
       <Col offset={8} span={8}>{renderPlayer(users[users.length-1])}</Col>
       <Col span={8}>{ actionButtons }</Col>
