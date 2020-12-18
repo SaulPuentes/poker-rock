@@ -21,16 +21,6 @@ const headers = {
 }
 
 /**
- * @description Deep copies the properties from the given ```obj``` parameter to a game object.
- * @param {Object} obj An object matching the a game fiel
- * @returns {Game} A game object representing the available fields.
- */
-const parse2Game = (obj) => {
-    const game = new Game();
-    return Object.assign(game, obj);
-}
-
-/**
  * @description Calls the api to request to start a new game.
  * @param {Game} game The game to create.
  * @returns {Promise<boolean>} The promise of a boolean, ```true``` when successful, ```false``` otherwise. 
