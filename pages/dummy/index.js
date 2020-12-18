@@ -1,3 +1,5 @@
+//This site is only for testing purposes, ignore it otherwise. 
+
 import Table from '../../models/Table';
 import Card from '../../models/Card';
 import Deck from '../../models/Deck';

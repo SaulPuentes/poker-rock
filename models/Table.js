@@ -31,6 +31,7 @@ export default class Table {
         }
         
         //Dummy data +++++++++++++++++++++++++++++++++++++++++++++++++
+        //Uncomment this array in case there are not active players
         //users = ['Toño', 'Sebas', 'Saul', 'Javier'];
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         
@@ -43,11 +44,9 @@ export default class Table {
             let us = new Player(users[a]);
             this._players.push(us);
         }
-        console.log("players u", this._players)
         
         this._players.forEach(p => p.giveCard(this._deck.nextCard()) );
         this._players.forEach(p => p.giveCard(this._deck.nextCard()) );
-
 
         //this._players = new Player();
         //this._players.giveCard(this._deck.nextCard());
@@ -112,6 +111,8 @@ export default class Table {
      */
     shouldAddCard() {
         //Dummy data ++++++++++++++++++++++++++++++++++++++++++++
+        /*
+        //Uncomment this in case there are no available players
         this._records.push({
             userName: 'Toño',
             movement: 'Fold',
@@ -129,6 +130,7 @@ export default class Table {
             movement: 'Fold',
             amount: 500
         });
+        */
         //Dummy data ++++++++++++++++++++++++++++++++++++++++++
 
         let sliceIndex = -1 * (this._players.length - 1);
@@ -144,7 +146,6 @@ export default class Table {
         
         //If everybody falls, then the table gets another card
         if(f == true) {
-            console.log("Fold");
             let card = this._deck.nextCard();
             this._cards.push(card);
             return true;
@@ -183,8 +184,12 @@ export default class Table {
         }
     }//End of gameEnds
 
+    /**
+     * @description Determines the winner hand, brings the data for all the users hands
+     * and the table, so it can makes a comparison to determine who is the winner. 
+     * @returns The index of the player who has the higher score.
+     */
     winnerHand(){
-        //Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         let t = this._cards;
         let p1 = t.concat(this._players[0]._cards);
         let p2 = t.concat(this._players[1]._cards);
@@ -215,7 +220,7 @@ export default class Table {
         let flag_pair = false;
         let flag_three = false;
         let flag_pok = false;
-      
+
         //Winner hand
         while(i<hands.length){
             //Same Suits ----------------------------------------------------------
@@ -249,14 +254,14 @@ export default class Table {
                 console.log(`Straight`);
             } 
             else if(flag_rf == false){
-                let count_fh = 0;
-                
+                //Splits the cards into objects, so it can counts how many incidences of a same card
+                //can occur. 
+                let count_fh = 0; 
                 hands_r[i].forEach(l => counts[l] = (counts[l]||0)+1);
                 tempArr_p.push(counts);
                 counts = {};
-
                 let arr = Object.entries(tempArr_p[i]);
-                console.log(arr);
+
                 for(let m = 0; m<arr.length; m++){
                     if(arr[m][1] == 4)
                     {
@@ -288,7 +293,6 @@ export default class Table {
                     }
                     else if(flag_pok == false && flag_three == false && flag_pair == false)
                     {
-                        //hands_s[i].every(v => v == "H") 
                         points[i]+=(eval_r(arr[m][0]))/10;
                     }
 
@@ -311,18 +315,12 @@ export default class Table {
                 flag_rf = false;
                 
             }
-
             console.log(`Player ${i}: `,points[i]);
-            
             i++
-            
         }//End of while for winner hand
         let pw = points.indexOf(Math.max(...points));
-        
         console.log(`Player wins ${pw}, Score:`, Math.max(...points));
-
-
-        //Dummy Test ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        return pw;
 
     }//End of Winner Hand
 
@@ -374,10 +372,11 @@ export default class Table {
         return this._bet;
     }
 
-}//End of Class
+}//End of Class Table
 
-//Dumy Test ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+//Function used in winner hand, depending of the coincidence returns a value
+//so it can be added to the current user score and can determine who
+//the winner is. 
 function eval_r(rank_p){
     let total = 0;
 
@@ -426,6 +425,6 @@ function eval_r(rank_p){
     }
 
     return total
-}
 
-//Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+}//End of eval_r
+

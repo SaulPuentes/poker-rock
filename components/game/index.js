@@ -13,15 +13,15 @@ import Image from 'next/image'
  */
 const users =  [
   {
-    username: 'Saul',
+    username: 'Antonio',
     score: 2000
   },
    {
-     username: 'Toño',
+     username: 'Saul',
      score: 2000
    },
    {
-     username: 'Toño',
+     username: 'Sebas',
     score: 2000
    },
   // The last player in this array should be my user for UI purposes
@@ -30,8 +30,6 @@ const users =  [
     score: 2000
   }
 ]
-
-
 
 function Game() {
 
@@ -68,9 +66,12 @@ function Game() {
     <Player username={user.username} score={user.score}/>
   
   // Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  const us = ["p1", "p2", "p3", "p4"]
+  
+  
+  const us = [session.user.name, "p2", "p3", "p4"]
   const table = new Table(us)
-  const givenCards = (
+
+  const playerCards = (
     <>   
       {       
         table._players.map( (element,index) => element._cards.map((i,j) => 
@@ -80,6 +81,28 @@ function Game() {
       
     </>
   )
+
+  const player1_Cards = (
+    <>
+      {
+        table._players[0]._cards.map((i,j) =>
+        <li key={j}><Image src ={i.path} width={60} height={120}/></li>
+        )
+      }
+    </>
+  )
+
+    
+  const tableCards = (
+    <>
+      {
+        table._cards.map((i,j) =>
+          <th key={j}><Image src ={i.path} width={60} height={120}/></th>
+        )
+      }
+    </>
+
+  ) 
 
   // Dummy Test +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -100,16 +123,23 @@ function Game() {
   return (<>
     
     <Row gutter={[16, 16]}>
+      {
+        table._players[0]._cards.map((i,j) =>
+        <li key={j}><Image src ={i.path} width={60} height={120}/></li>
+        )
+      }
       { users.length > 1 && (
         <Col offset={8} span={8}>{renderPlayer(users[0])}</Col>
       )}
     </Row>
-        
+
     <Row gutter={[16, 16]}>
-      { users.length > 2 && (
+      { users.length > 2 && ( 
         <Col span={8}>{renderPlayer(users[1])}</Col>
       )}
+
       <Col span={8} offset={users.length === 2 && 8}>
+        {tableCards}
         CENTER OF THE TABLE
       </Col>
       { users.length > 3 && (
