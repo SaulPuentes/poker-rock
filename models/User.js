@@ -2,7 +2,7 @@
 export default class User {
 
     _id = undefined;
-    _name = undefined;
+    _username = undefined;
     _score = 5000;
     _password = undefined;
 
@@ -18,11 +18,11 @@ export default class User {
         this._id = value;
     }
 
-    get name() {
-        return this._name;
+    get username() {
+        return this._username;
     }
 
-    set name(value) {
+    set username(value) {
         this._name = value;
     }
 

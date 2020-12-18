@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 const POST = async (req, res) => {
     // map to model
     const user = new User();
-    user.name = req.body.username;
+    user.username = req.body.username;
     user.password = req.body.password;
     // database call
     const created = await collection.create(user);
