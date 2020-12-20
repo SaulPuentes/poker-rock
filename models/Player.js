@@ -1,7 +1,6 @@
 import User from './User';
 import Card from './Card';
 import Movement from './Movement';
-import CallableEvent from './CallableEvent';
 
 /**
  * @class Represents a player in a poker game.
