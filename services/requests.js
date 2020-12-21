@@ -27,15 +27,16 @@ const headers = {
  */
 export const gamesCreate = async (game) => {
   const url = `${baseUrl}/api/games`;
-  const params = {
+  const data = {
     headers: headers,
     method: 'POST',
-    body: JSON.stringify({ players: game.players})
+    body: JSON.stringify({players: game.players})
   };
-  const data = await fetch(url, params);
-  if(data.status === 201) {
-    const response = data.json();
-    return response;
+  const response = await fetch(url, data);
+  if(response.status === 201) {
+    const json = await response.json();
+    console.log('json: ',);
+    return true;
   }
   return false;
 }
@@ -51,16 +52,17 @@ export const gamesRead = async (game) => {
     headers: headers,
     method: 'GET'
   };
+  console.log('url: '. url);
   const response = await fetch(url, data);
   if(response.status === 200) {
-    const json = response.json();
-    for(const player in json._players) {
-      game.players.push(player);
-    }
-    for(const movement in json._movements) {
-      game.movements.push(movement);
-    }
-    return true;
+    const json = await response.json();
+    // for(const player in json._players) {
+    //   game.players.push(player);
+    // }
+    // for(const movement in json._movements) {
+    //   game.movements.push(movement);
+    // }
+    return json;
   }
   return false;
 }

@@ -14,7 +14,7 @@ export const onCreate = async(game) => {
     const mongo = await connection();
     const result = await mongo.collections.games.insertOne(game);
     game.id = result.insertedId;
-    return result.insertedCount == 1;
+    return result;
 }
 
 export const onRead = async(game) => {
@@ -32,7 +32,7 @@ export const onRead = async(game) => {
             for (const movement of result._movements) {
                 game.movements.push(movement);
             }
-            return true;
+            return result;
         }
     }
     return false;
@@ -44,10 +44,10 @@ export const onUpdate = async(game) => {
         const filter = { _id: mongo.ObjectID(game.id) };
         // FIXME - Declare update without explicitly specifing the fields to update
         const update = {
-            $set: { _players: game.players },
-            $set: { _movements: game.movements }
+            $set: { _players: game.players, _movements: game.movements }
         };
         const result = await mongo.collections.games.findOneAndUpdate(filter, update);
+        console.log('result: ', result);
         return result != undefined;
     }
     return false;

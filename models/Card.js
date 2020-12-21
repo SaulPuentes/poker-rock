@@ -51,8 +51,8 @@ export default class Card {
         const current_user = true;
         const [ session, loading ] = useSession();
     
-        console.log("loading", loading);
-        console.log("Card user", session.user.name);
+        // console.log("loading", loading);
+        // console.log("Card user", session.user.name);
         
         if(session.user.name){
             return `/img/${this._rank}${this._suit}.jpg`;

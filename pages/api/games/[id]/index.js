@@ -20,7 +20,7 @@ const GET = async (req, res) => {
     const readed = await collection.read(game);
     // send response
     if(readed) {
-        return res.status(200).json(game);
+        return res.status(200).json(readed);
     } else {
         return res.status(404).json(game);
     }
