@@ -31,8 +31,10 @@ export default class Table {
         }
         
         //Dummy data +++++++++++++++++++++++++++++++++++++++++++++++++
-        users = ['Toño', 'Sebas', 'Saul', 'Javier'];
+        //Uncomment this array in case there are not active players
+        //users = ['Toño', 'Sebas', 'Saul', 'Javier'];
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        
 
         // deal cards
         //this._players = users.forEach(u,i => new Player(u));
@@ -42,11 +44,9 @@ export default class Table {
             let us = new Player(users[a]);
             this._players.push(us);
         }
-        console.log("players u", this._players)
         
         this._players.forEach(p => p.giveCard(this._deck.nextCard()) );
         this._players.forEach(p => p.giveCard(this._deck.nextCard()) );
-
 
         //this._players = new Player();
         //this._players.giveCard(this._deck.nextCard());
@@ -111,6 +111,8 @@ export default class Table {
      */
     shouldAddCard() {
         //Dummy data ++++++++++++++++++++++++++++++++++++++++++++
+        /*
+        //Uncomment this in case there are no available players
         this._records.push({
             userName: 'Toño',
             movement: 'Fold',
@@ -128,6 +130,7 @@ export default class Table {
             movement: 'Fold',
             amount: 500
         });
+        */
         //Dummy data ++++++++++++++++++++++++++++++++++++++++++
 
         let sliceIndex = -1 * (this._players.length - 1);
@@ -143,7 +146,6 @@ export default class Table {
         
         //If everybody falls, then the table gets another card
         if(f == true) {
-            console.log("Fold");
             let card = this._deck.nextCard();
             this._cards.push(card);
             return true;
@@ -171,97 +173,6 @@ export default class Table {
      * @returns {boolean} ```True``` when game should end, ```false``` otherwise.
      */
     gameEnds() {
-
-        //Dummy data ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        let t = this._cards;
-        let p1 = t.concat(this._players[0]._cards);
-        let p2 = t.concat(this._players[1]._cards);
-        let p3 = t.concat(this._players[2]._cards);
-        let p4 = t.concat(this._players[3]._cards);
-        
-        console.log("p1",p1);
-        console.log("p2",p2);
-        console.log("p3",p3);
-        console.log("p4",p4);
-
-        let p1_r = p1.map(e => e._rank);
-        let p2_r = p2.map(e => e._rank);
-        let p3_r = p3.map(e => e._rank);
-        let p4_r = p4.map(e => e._rank);
-
-        let p1_s = p1.map(e => e._suit);
-        let p2_s = p2.map(e => e._suit);
-        let p3_s = p3.map(e => e._suit);
-        let p4_s = p4.map(e => e._suit);
-        
-        let i = 0;
-        let hands = [p1, p2, p3, p4];
-        let hands_r = [p1_r, p2_r, p3_r, p4_r];
-        let hands_s = [p1_s, p2_s, p3_s, p4_s];
-        let points = [];
-        
-        let count = 0;
-        let counts = {};
-        let count_aux = 0;
-        let tempArr_p = [];
-        let flag_fh = false;
-        let flag_f = false;
-        let flag_r = false;
-        let flag_p = false;
-        let flag_s = false;
-        let flag_2 = false;
-        let flag_3 = false;
-
-        //console.log("C", hands_s[i].every(v => v == "H") || hands_s[i].every(v => v == "C") || hands_s[i].every(v => v == "S") || hands_s[i].every(v => v == "D"));
-        //console.log("A",hands_r[i].includes("A"))
-        
-        //Winner hand
-        while(i<hands.length){
-            if(hands_s[i].every(v => v == "H") || hands_s[i].every(v => v == "C") || hands_s[i].every(v => v == "S") || hands_s[i].every(v => v == "D")){
-                //Royal Flush
-                if(hands_r[i].includes("A") && hands_r[i].includes("Q") && hands_r[i].includes("K") && hands_r[i].includes("J") && hands_r[i].includes("10")){
-                    flag_r = true;
-                    points[i] = 100;
-                    console.log(`Royal Flush Player ${i} wins`);
-                }
-                //Straight flush
-                else if(hands_r[i].includes("10") && hands_r[i].includes("9") && hands_r[i].includes("8") && hands_r[i].includes("7") && hands_r[i].includes("6")){
-                    console.log(`Straight Flush Player ${i} wins`);
-                    points[i] = 90;
-                } 
-            }
-            //Pairs and Threes
-            else if(flag_r == false){
-                
-                hands_r[i].forEach(l => counts[l] = (counts[l]||0)+1);
-                tempArr_p.push(counts);
-                counts = {};
-
-                let arr = Object.entries(tempArr_p[i]);
-                
-            }
-            //Flush
-            else if(flag_p == false && flag_3 == false && flag_2 == false && flag_r == false){
-                if(hands_s[i].every(v => v == "H") || hands_s[i].every(v => v == "C") || hands_s[i].every(v => v == "S") || hands_s[i].every(v => v == "D")){
-                    points[i] = 60;
-                    flag_f = true;
-                    console.log(`Flush Player ${i} wins`);
-                }
-            }
-            else if(flag_p == false && flag_3 == false && flag_2 == false && flag_r == false && flag_f == false){
-                //Straight
-                if(flag_f == false && hands_r[i].includes("10") && hands_r[i].includes("9") && hands_r[i].includes("8") && hands_r[i].includes("7") && hands_r[i].includes("6")){
-                points[i] = 50;
-                flag_s = true;
-                console.log(`Straight Player ${i} wins`);
-            }
-            }
-
-            i++
-        }//End of while for winner hand
-        console.log(points);
-        
-
         // if there are no more players.
         if(this._players.length < 2) {
             console.log("No more players")
@@ -272,6 +183,146 @@ export default class Table {
             return true;
         }
     }//End of gameEnds
+
+    /**
+     * @description Determines the winner hand, brings the data for all the users hands
+     * and the table, so it can makes a comparison to determine who is the winner. 
+     * @returns The index of the player who has the higher score.
+     */
+    winnerHand(){
+        let t = this._cards;
+        let p1 = t.concat(this._players[0]._cards);
+        let p2 = t.concat(this._players[1]._cards);
+        let p3 = t.concat(this._players[2]._cards);
+        let p4 = t.concat(this._players[3]._cards);
+
+        let p1_r = p1.map(e => e._rank);
+        let p2_r = p2.map(e => e._rank);
+        let p3_r = p3.map(e => e._rank);
+        let p4_r = p4.map(e => e._rank);
+
+        let p1_s = p1.map(e => e._suit);
+        let p2_s = p2.map(e => e._suit);
+        let p3_s = p3.map(e => e._suit);
+        let p4_s = p4.map(e => e._suit);
+
+        let i = 0;
+        let hands = [p1, p2, p3, p4];
+        let hands_r = [p1_r, p2_r, p3_r, p4_r];
+        let hands_s = [p1_s, p2_s, p3_s, p4_s];
+        let points = [0,0,0,0];
+        
+        let counts = {};
+        let count_t = 0;
+        let count_p = 0;
+        let tempArr_p = [];
+        let flag_rf = false;
+        let flag_pair = false;
+        let flag_three = false;
+        let flag_pok = false;
+
+        //Winner hand
+        while(i<hands.length){
+            //Same Suits ----------------------------------------------------------
+            if(hands_s[i].every(v => v == "H") || hands_s[i].every(v => v == "C") || hands_s[i].every(v => v == "S") 
+            || hands_s[i].every(v => v == "D")){
+                //Royal Flush
+                flag_rf = true;
+                if(hands_r[i].includes("A") && hands_r[i].includes("Q") && hands_r[i].includes("K") 
+                && hands_r[i].includes("J") && hands_r[i].includes("10")){
+                    points[i] += 300;   
+                    console.log(`Royal Flush`);
+                }
+                //Straight flush
+                else if(hands_r[i].includes("10") && hands_r[i].includes("9") && hands_r[i].includes("8") 
+                && hands_r[i].includes("7") && hands_r[i].includes("6")){
+                    points[i] += 250;
+                    console.log(`Straight Flush Player`);
+                    
+                } 
+                //Flush
+                else{
+                    points[i] += 65;
+                    console.log(`Flush`);
+                }
+            }
+            //Differents Suits ------------------------------------------------------ 
+            //Straight
+            else if(flag_rf == false && hands_r[i].includes("10") && hands_r[i].includes("9") && hands_r[i].includes("8") && hands_r[i].includes("7") && hands_r[i].includes("6")){
+                points[i] += 100;
+                flag_s = true;
+                console.log(`Straight`);
+            } 
+            else if(flag_rf == false){
+                //Splits the cards into objects, so it can counts how many incidences of a same card
+                //can occur. 
+                let count_fh = 0; 
+                hands_r[i].forEach(l => counts[l] = (counts[l]||0)+1);
+                tempArr_p.push(counts);
+                counts = {};
+                let arr = Object.entries(tempArr_p[i]);
+
+                for(let m = 0; m<arr.length; m++){
+                    if(arr[m][1] == 4)
+                    {
+                        //Poker
+                        points[i]+= 160;
+                        points[i]+= 4*(eval_r(arr[m][0]));
+                        flag_poke = true;
+                        console.log("Poker")
+                    }
+                    else if(arr[m][1]==3)
+                    {
+                        //Three of a kind
+                        count_t += 1;
+                        count_fh += 1;
+                        points[i] += 60
+                        points[i]+= 3*(eval_r(arr[m][0]));
+                        flag_three = true;
+                        console.log("Three of a kind")
+                    }
+                    else if(arr[m][1] == 2)
+                    {
+                        //One Pair
+                        count_p += 1;
+                        count_fh += 1;
+                        points[i] += 15
+                        points[i]+= 2*(eval_r(arr[m][0]));
+                        flag_pair = true;
+                        console.log("One Pair")
+                    }
+                    else if(flag_pok == false && flag_three == false && flag_pair == false)
+                    {
+                        points[i]+=(eval_r(arr[m][0]))/10;
+                    }
+
+                    if(count_p == 2){
+                        console.log("two_pairs")
+                    }
+                    if(count_fh ==2 && count_t>=1){
+                        //Full House
+                        console.log("Full House");
+                        points[i] += 10;
+                    }
+
+                }//End of pair and threes
+                count_p = 0;
+                count_t = 0;
+                count_fh = 0;
+                flag_pair = false;
+                flag_pok = false;
+                flag_three = false;
+                flag_rf = false;
+                
+            }
+            console.log(`Player ${i}: `,points[i]);
+            i++
+        }//End of while for winner hand
+        let pw = points.indexOf(Math.max(...points));
+        console.log(`Player wins ${pw}, Score:`, Math.max(...points));
+        return pw;
+
+    }//End of Winner Hand
 
     /**
      * @description The players in the table.
@@ -321,41 +372,59 @@ export default class Table {
         return this._bet;
     }
 
-}
+}//End of Class Table
 
+//Function used in winner hand, depending of the coincidence returns a value
+//so it can be added to the current user score and can determine who
+//the winner is. 
+function eval_r(rank_p){
+    let total = 0;
 
-/*
+    switch(rank_p){
+        case "A":
+            total += 13;
+            break;
+        case "K":
+            total += 12;
+            break;
+        case "Q":
+            total += 11;
+            break;
+        case "J":
+            total += 10;
+            break;
+        case "10":
+            total += 9;
+            break;
+        case "9":
+            total += 8;
+            break;
+        case "8":
+            total += 7;
+            break;
+        case "7":
+            total += 6;
+            break;
+        case "6":
+            total += 5;
+            break;
+        case "5":
+            total += 4;
+            break;
+        case "4":
+            total += 3;
+            break;
+        case "3":
+            total += 2;
+            break;
+        case "2":
+            total += 1;
+            break;
+        default:
+            total = 0;
+    }
 
-                 for(let o = 0; o<hands_r[i].length; o++){
-                    for(let p = o+1; p<hands_r[i].length; p++ ){
-                        if(hands_r[i][o] == hands_r[i][p]){
-                            count++;    
-                            break;
-                        }
-                    }
-                }
+    return total
 
+}//End of eval_r
 
-                //Poker
-                if(count >= 4)
-                {
-                    points[i] = 80;
-                    flag_p = true;
-                    console.log(`Poker Player ${i} wins`);
-                }
-                //Three of a kind
-                else if(count == 3)
-                {
-                    points[i] = 40;
-                    flag_3 = true;
-                    console.log(`Three of a kind Player ${i} wins`);
-                }
-                //One Pair
-                else if(count == 2 && count < 3){
-                    points[i] = 20;
-                    flag_2 = true;
-                    console.log(`One Pair Player ${i} wins`);
-                }
-                count = 0;
-
-            */

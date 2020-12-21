@@ -1,39 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Row, Col, InputNumber } from 'antd'
 import { useSession } from 'next-auth/client'
 import Player from '../player'
-import { addMove } from '../../util/request'
 import { gameChannel } from '../../util/channel'
+import { GameContext } from '../../pages/_app'
+import { gamesRead, movementsAdd } from '@services/requests'
+import { exposeCard, hideCard } from './getPath'
 
-/**
- * TODO: Change users for all the logged in the app
- */
-const users =  [
-  {
-    username: 'Saul',
-    score: 2000
-  },
-  // {
-  //   username: 'Toño',
-  //   score: 2000
-  // },
-  // {
-  //   username: 'Toño',
-  //   score: 2000
-  // },
-  // The last player in this array should be my user for UI purposes
-  {
-    username: 'MyPlayer',
-    score: 2000
-  }
-]
+import Image from 'next/image'
 
 
 function Game() {
-
+  const [ game ] = useContext(GameContext)
   const [ session, loading ] = useSession();
   const [ movements, setMovements ] = useState([]);
   const [ raiseValue, setRaiseValue ] = useState();
+  const [ table, setTable ] = useState();  
+
+  useEffect(() => {
+    initializeGame()
+  }, []);
+
+  const initializeGame = async () => {
+    const response = await gamesRead({
+      id: game.id
+    })
+    console.log('response: ', response);
+    setTable(response.table);
+  }
 
   useEffect(() => {
     receiveUpdatedMovements()
@@ -49,20 +43,31 @@ function Game() {
   
   // send request to the api game
   const handleMovement = async (movement, bet) => {
-    const data = await addMove({
-      _id: '5fda30cf00095e6861701a58',
-      record: {
+    //TODO - Chage id for current id from database
+    const data = await movementsAdd(
+      game.id,
+      {
         movement,
-        player: session.user.name,
+        player: game.me,
         bet
       }
-    })
+    )
     console.log('data: ', data);
   }
 
-  const renderPlayer = (user) =>
-    <Player username={user.username} score={user.score}/>
+  const renderScore = (player) =>
+    <Player username={player._user} score={2000}/>
   
+  const renderCards = (player) =>
+    player._cards.map((i,j) =>
+      <th key={j}><Image src ={exposeCard(i)} width={60} height={100}/></th>
+    )
+  
+  const renderTableCards = (cards) =>
+    cards.map((i,j) =>
+      <th key={j}><Image src ={exposeCard(i)} width={60} height={100}/></th>
+    )
+
 
   const actionButtons = (
     <>
@@ -78,30 +83,51 @@ function Game() {
     </>
   )
 
-  return (<>
-    
+  //Shows the current players, including the table, and their respective cards
+  return ( table ? <>
     <Row gutter={[16, 16]}>
-      { users.length > 1 && (
-        <Col offset={8} span={8}>{renderPlayer(users[0])}</Col>
+      { table._players.length > 1 && (
+        <Col offset={8} span={8}>
+          { renderCards(table._players[0]) }
+          { renderScore(table._players[0]) }
+        </Col>
       )}
     </Row>
+
     <Row gutter={[16, 16]}>
-      { users.length > 2 && (
-        <Col span={8}>{renderPlayer(users[1])}</Col>
+      { table._players.length > 2 && ( 
+        <Col span={8}>
+          { renderCards(table._players[1]) }
+          { renderScore(table._players[1]) }
+        </Col>
       )}
-      <Col span={8} offset={users.length === 2 && 8}>
+
+      <Col span={8} offset={table._players.length === 2 && 8}>
+        {renderTableCards(table._cards)}
         CENTER OF THE TABLE
       </Col>
-      { users.length > 3 && (
-        <Col span={8}>{renderPlayer(users[2])}</Col>
+
+      { table._players.length > 3 && (
+        <Col span={8}>
+          { renderCards(table._players[2]) }
+          { renderScore(table._players[2]) }
+        </Col>
       )}
-    </Row>
+    </Row>  
+
     <Row gutter={[16, 16]}>
-      <Col offset={8} span={8}>{renderPlayer(users[users.length-1])}</Col>
+
+      <Col offset={8} span={8}>
+          { renderCards(table._players[1]) }
+          { renderScore(table._players[1]) }
+        </Col>
       <Col span={8}>{ actionButtons }</Col>
     </Row>
     
-  </>)
-}
+  </>:
+  'Loading Game') //End of render return
+
+
+}//End of Game
 
 export default Game;

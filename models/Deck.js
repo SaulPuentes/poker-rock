@@ -12,18 +12,19 @@ export default class Deck {
     /**
      * @constructor Provides a new ordered deck of 52 cards.
      */
+    
     constructor() {
         this._cards = [];
         for(let r in Rank.enum.values) {
             for(let s in Suit.enum.values) {
-                let rank = Rank.enum.values[r];
-                let suit = Suit.enum.values[s];
-                let card = new Card(suit, rank);
+                
+                let card = new Card(Suit.enum.values[s]._value, Rank.enum.values[r]._value);
                 this._cards.push(card);
             }
         }
         Object.seal(this);
     }
+    
 
     /**
      * @description The amount of cards left in the deck.
@@ -38,16 +39,7 @@ export default class Deck {
      * @returns {undefined} Nothing.
      */
     shuffle() {
-        /*
-        for(let i = 0; i < this._cards.length; i++) {
-            let j = Math.floor(Math.random() * this._cards.length);
-            
-            this._cards[i] = this._cards[j];
-            //this._cards[i], this._cards[j] = this._cards[j], this._cards[i];
-        }
-        */
-       this._cards.sort(() => Math.random() -0.5)
-        
+        this._cards.sort(() => Math.random() -0.5)
         return this._cards
     }
 

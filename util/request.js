@@ -1,5 +1,3 @@
-import { presenceChannel } from '../util/channel'
-
 const headers = {
   'accept': 'application/json, text/plain, */*',
   'accept-language': 'es-ES,es;q=0.9',
@@ -24,25 +22,17 @@ export const addMove = async (params) => {
 }
 
 export const addPlayer = async (player) => {
-  const url = 'http://localhost:3000/api/auth/pusher'
-
-  const socketId =  presenceChannel.pusher.connection.socket_id;
-
-  const newParams = {
-    player,
-    socket_id: socketId,
-    channel_name: presenceChannel.name
-  }
+  const url = 'http://localhost:3000/api/player/add'
 
   try {
     const data = await fetch(`${url}`,
       { method: 'POST',
         headers,
-        body: JSON.stringify(newParams)
+        body: JSON.stringify(player)
     })
     const json = await data.json()
 
-    console.log('json: ', json);
+    return json
 
   } catch (error) {
     console.log('error: ', error);

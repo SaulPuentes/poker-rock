@@ -1,12 +1,25 @@
 import '../styles/globals.css'
+import { useState, createContext } from 'react'
 import { Provider } from 'next-auth/client'
+
+export const GameContext = createContext()
+
+const initialGameSeed = {
+  id: '5fe09657b6ad6b314276a9d8',
+  players: ['saulpuentes', 'rafael'],
+  me: 'saulpuentes'
+}
 
 //The function my App is modified, so, the session can be maintained
 //while the user is logged.
 function MyApp({ Component, pageProps }) {
+  const [game, setGame] = useState(initialGameSeed);
+
   return( 
     <Provider session = {pageProps.session}>
-      <Component {...pageProps} />
+      <GameContext.Provider value={[game, setGame]}>
+        <Component {...pageProps} />
+      </GameContext.Provider>
     </Provider>
     );
 
@@ -14,16 +27,3 @@ function MyApp({ Component, pageProps }) {
 
 
 export default MyApp
-
-
-/*
-import { Provider } from 'next-auth/client'
-
-export default function App ({ Component, pageProps }) {
-  return (
-    <Provider session={pageProps.session}>
-      <Component {...pageProps} />
-    </Provider>
-  )
-}
-*/

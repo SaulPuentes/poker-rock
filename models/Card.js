@@ -1,5 +1,8 @@
 import Rank from './Rank';
 import Suit from './Suit';
+import { useSession } from 'next-auth/client'
+
+
 
 /**
  * @class Represents an inmutable card.
@@ -17,6 +20,7 @@ export default class Card {
     constructor(suit, rank) {
         this._suit = suit;
         this._rank = rank;
+        //this._img = 
         Object.freeze(this);
     }
 
@@ -36,8 +40,27 @@ export default class Card {
         return this._rank;
     }
 
+    /**
+     * @description Returns the path of the card. If the current user is active, they
+     * can see their cards, otherwise they will see the backside
+     * @returns a String, so it can be called in other parts of the project when
+     * in React renders the page. 
+     */
     get path() { 
-        return `/img/${this._rank.value}${this._suit.value}.jpg`;
+        //TODO - Modify this for the current user.
+        const current_user = true;
+        const [ session, loading ] = useSession();
+    
+        // console.log("loading", loading);
+        // console.log("Card user", session.user.name);
+        
+        if(session.user.name){
+            return `/img/${this._rank}${this._suit}.jpg`;
+        }
+        else {
+            return `/img/Red_back.jpg`;
+        }
+        
     }
 
 }
