@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         default:
             return res.status(405).json({error: 'Method not found'});
     }
-}
+}//End of handler
 
 const POST = async (req, res) => {
     // map to model
@@ -23,6 +23,8 @@ const POST = async (req, res) => {
         ...game,
         table
     }
+    console.log(table.winnerHand());
+
     // database call
     const { insertedCount, insertedId } = await collection.create(newGame);
     console.log('BEFORE CREATE');
@@ -33,4 +35,4 @@ const POST = async (req, res) => {
     } else {
         return res.status(400).json(newGame);
     }
-}
+}//End of post
