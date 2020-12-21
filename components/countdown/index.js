@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import styles from './Countdown.module.scss'
 
 const Countdown = (props) => {
-  const router = useRouter();
   const [minutes, setMinutes] = useState(props.minutes);
   const [seconds, setSeconds] = useState(props.seconds);
 
@@ -15,7 +14,6 @@ const Countdown = (props) => {
       if (seconds === 0) {
           if (minutes === 0) {
               clearInterval(myInterval)
-              router.push('/game');
               props.callback()
           } else {
             setMinutes(minutes - 1);
@@ -28,9 +26,9 @@ const Countdown = (props) => {
   })
 
   return (
-    <div>
+    <div className={styles.countdownWrapper}>
       { minutes === 0 && seconds === 0
-          ? <h1>Start!</h1>
+          ? <h1>Creating game...</h1>
           : <h1>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
         }
     </div>

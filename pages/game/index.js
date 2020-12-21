@@ -5,6 +5,9 @@ import Game from '../../components/game'
 const { Header, Sider, Content } = Layout;
 
 export default function Home() {
+
+  
+
   return (
     <Layout>
       <Header className={styles.header}>POKER ROCK</Header>

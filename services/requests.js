@@ -27,16 +27,15 @@ const headers = {
  */
 export const gamesCreate = async (game) => {
   const url = `${baseUrl}/api/games`;
-  const data = {
+  const params = {
     headers: headers,
     method: 'POST',
-    body: JSON.stringify(game.players)
+    body: JSON.stringify({ players: game.players})
   };
-  const response = await fetch(url, data);
-  if(response.status === 201) {
-    const json = response.json();
-    game.id = json.id;
-    return true;
+  const data = await fetch(url, params);
+  if(data.status === 201) {
+    const response = data.json();
+    return response;
   }
   return false;
 }
