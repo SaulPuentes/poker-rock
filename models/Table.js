@@ -118,18 +118,6 @@ export default class Table {
             movement: 'Fold',
             amount: 500
         });
-    
-        this._records.push({
-            userName: 'Sebas',
-            movement: 'Fold',
-            amount: 500
-        });
-        
-        this._records.push({
-            userName: 'Saul',
-            movement: 'Fold',
-            amount: 500
-        });
         */
         //Dummy data ++++++++++++++++++++++++++++++++++++++++++
 
@@ -191,27 +179,11 @@ export default class Table {
      */
     winnerHand(){
         let t = this._cards;
-        let p1 = t.concat(this._players[0]._cards);
-        let p2 = t.concat(this._players[1]._cards);
-        let p3 = t.concat(this._players[2]._cards);
-        let p4 = t.concat(this._players[3]._cards);
-
-        let p1_r = p1.map(e => e._rank);
-        let p2_r = p2.map(e => e._rank);
-        let p3_r = p3.map(e => e._rank);
-        let p4_r = p4.map(e => e._rank);
-
-        let p1_s = p1.map(e => e._suit);
-        let p2_s = p2.map(e => e._suit);
-        let p3_s = p3.map(e => e._suit);
-        let p4_s = p4.map(e => e._suit);
-
+        let hands = [];;
+        let hands_r = [];
+        let hands_s = [];
+        let points = [];
         let i = 0;
-        let hands = [p1, p2, p3, p4];
-        let hands_r = [p1_r, p2_r, p3_r, p4_r];
-        let hands_s = [p1_s, p2_s, p3_s, p4_s];
-        let points = [0,0,0,0];
-        
         let counts = {};
         let count_t = 0;
         let count_p = 0;
@@ -220,6 +192,28 @@ export default class Table {
         let flag_pair = false;
         let flag_three = false;
         let flag_pok = false;
+        
+        let p = [];
+        for(let b=0; b<this._players.length;b++){
+            p[b]= t.concat(this._players[b]._cards);
+            hands.push(p[b]);
+            points.push(0);
+        }
+        console.log("p", p);
+
+        let p_r = [];
+        for(let c = 0; c<p.length; c++){
+            p_r[c] = p[c].map(e => e.rank);
+            hands_r.push(p_r[c]);
+        }
+        console.log("pr", p_r);
+        
+        let p_s = [];
+        for(let d = 0; d<p.length; d++){
+            p_s[d] = p[d].map(e => e._suit);
+            hands_s.push(p_s[d])
+        }
+        console.log("ps", p_s);
 
         //Winner hand
         while(i<hands.length){
@@ -319,7 +313,7 @@ export default class Table {
             i++
         }//End of while for winner hand
         let pw = points.indexOf(Math.max(...points));
-        console.log(`Player wins ${pw}, Score:`, Math.max(...points));
+        console.log(`Player wins ${this._players[pw]._user}, Score:`, Math.max(...points));
         return pw;
 
     }//End of Winner Hand

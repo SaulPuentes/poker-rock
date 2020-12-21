@@ -3,6 +3,8 @@ import { pusher } from '../../../util/pusher'
 import Game from '@models/Game';
 import Table from '../../../models/Table'
 
+var i = 0;
+
 export default async function handler(req, res) {
     switch(req.method) {
         case 'POST':
@@ -23,7 +25,11 @@ const POST = async (req, res) => {
         ...game,
         table
     }
-    console.log(table.winnerHand());
+
+    table.shouldAddCard();
+    table.shouldAddCard();
+    const winner = table.winnerHand();
+    console.log(winner);
 
     // database call
     const { insertedCount, insertedId } = await collection.create(newGame);
