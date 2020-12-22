@@ -67,7 +67,12 @@ function Game() {
         bet
       }
     )
-    console.log('data: ', data)
+
+    if(movement == "fold"){
+      console.log("game fold", table);
+    }
+
+    console.log('data: ', data);
   }
 
   const renderScore = (player) =>
