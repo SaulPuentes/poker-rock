@@ -13,5 +13,6 @@ export default async function handler(req, res) {
     const mongo = await connection();
     const users = await mongo.collections.users.find().sort(filter).limit(count).toArray();
     // send response
+    
     return res.status(200).json(users);
 };
