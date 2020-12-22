@@ -4,6 +4,7 @@ export default class Game {
     _id = undefined;
     _players = [];
     _movements = [];
+    table = [];
 
     constructor() {
         Object.seal(this);
@@ -23,6 +24,11 @@ export default class Game {
 
     get movements() {
         return this._movements;
+    }
+    
+
+    get table() {
+        return this.table;
     }
     
 }
