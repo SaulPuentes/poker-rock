@@ -48,7 +48,7 @@ export const onUpdate = async(game) => {
         //console.log('game.table: ', game.table);
 
         const update = {
-            $set: { _players: game.players, _movements: game.movements, table: game.table }
+            $set: { _players: game.players, _movements: game.movements }
         };
         const result = await mongo.collections.games.findOneAndUpdate(filter, update);
         console.log('result: ', result);
