@@ -4,9 +4,9 @@ import styles from './Lobby.module.scss'
 import Countdown from '../countdown'
 import { useRouter } from 'next/router'
 import { GameContext } from '../../pages/_app';
-import { gamesCreate } from '../../services/requests'
-import { gameChannel } from '../../util/channel'
-import { addPlayer } from '../../util/request'
+import { gamesCreate } from '@services/requests'
+import { gameChannel } from '@util/channel'
+import { addPlayer } from '@util/request'
 import { useSession } from 'next-auth/client'
 import { LoadingOutlined, UserOutlined } from '@ant-design/icons'
 

@@ -1,4 +1,5 @@
 import connection from '@database/connection';
+import { pusher } from '@util/pusher'
 
 const handleError = (e) => {
     // TODO - handle database error
@@ -48,6 +49,8 @@ export const onUpdate = async(game) => {
         };
         const result = await mongo.collections.games.findOneAndUpdate(filter, update);
         console.log('result: ', result);
+        console.log('game.movements: ', game.movements);
+        pusher.trigger('poker-rock', 'new-movement', game.movements)
         return result != undefined;
     }
     return false;

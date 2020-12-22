@@ -20,13 +20,12 @@ const POST = async (req, res) => {
     if(!readed) {
         return res.status(404).json(game);
     }
-    console.log('readed: ', readed);
     // update map to model TODO - Movement model
     const movement = {
         player: req.body.player,
         movement: req.body.movement,
         bet: req.body.bet
-    }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
     game.movements.push(movement);
     // update call
     const updated = await collection.update(game);
