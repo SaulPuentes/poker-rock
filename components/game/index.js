@@ -43,7 +43,6 @@ function Game() {
   
   // send request to the api game
   const handleMovement = async (movement, bet) => {
-    //TODO - Chage id for current id from database
     const data = await movementsAdd(
       game.id,
       {
@@ -52,6 +51,11 @@ function Game() {
         bet
       }
     )
+
+    if(movement == "fold"){
+      console.log("game fold", table);
+    }
+
     console.log('data: ', data);
   }
 
