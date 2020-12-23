@@ -8,6 +8,18 @@ const headers = {
 }
 const baseURL = process.env.BASE_URL; //http://localhost:3000';
 
+
+export async function getScores() {
+  const data = await fetch('/api/users/scores', {
+      method: 'GET',
+      headers
+  })
+
+  const json = await data.json()
+  console.log('json: ', json);
+  return json
+}
+
 export const addMove = async (params) => {
   const url = baseURL+ '/api/game/'
   try {

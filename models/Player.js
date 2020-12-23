@@ -10,6 +10,7 @@ export default class Player {
     _user = undefined;
     _cards = [];
     _lastMove = undefined;
+    _isFolded = false;
 
     /**
      * @constructor Provides a player for a poker game.
