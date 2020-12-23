@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { getScores } from '@util/request'
 //import { MongoClient, ObjectID } from 'mongodb';
 //import {handler} from '@models/LeaderBoard';
+import styles from './Leaderboard.module.scss'
 
 export default function Leaderboard() {
 //db.users.find().sort({"score": 1})
@@ -16,26 +17,68 @@ export default function Leaderboard() {
     setScores(response)
   }, [])
 
-
-  //const renderCards = (player) =>
-  //player._cards.map((i,j) =>
-    //<th key={j}><Image src ={exposeCard(i)} width={60} height={100}/></th>
-  //)
-
-  
-  const maxscores = scores[0].name;
-
-
-  console.log("maxscores",maxscores);
-
   console.log('scores: ', scores);
+
+  //console.log("maxscores",maxscores);
+
+  //Leaderboard update ---------------------------------------------------------------------
+  const result = scores.map((a,b) => 
+ <tr key={b} target={b}><td>{a.name}</td><td>{a.score}</td></tr> )
+  
+  
+  
   return (
   <>
-    Leaderboard
-    <br></br>
-    {maxscores}
-
+    <div className={styles.titleLeader}>
+      <h1>Leaderboard</h1>
+    
+      <table>
+      {result}
+      </table>
+    </div>
   </>
-  
-  )//End of return
+  )
+
+
+  //End of return
 }//End of Leaderboard
+
+
+
+/*
+ return (
+
+    <>
+    </>
+  )
+
+
+*/
+
+
+
+/**
+ * 
+ 
+  //let maxnames = [];
+  //let maxscores = [];
+  //let temp = "";
+  
+  //let i = 0;
+  //for(i=0; i<scores.length; i++){
+    //temp = scores[i].name + ": " + scores[i].score;
+    //maxscores.push(temp);
+    //maxscores.push(scores[i].score);
+    //maxnames.push(scores[i].name);
+  //}
+
+  //const resp = maxscores.map((a,b)=>
+  //<tr key={b} target={b}>{b+1}. {a}</tr>
+  //)
+
+
+
+
+
+
+ */
