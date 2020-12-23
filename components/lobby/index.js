@@ -56,7 +56,7 @@ function Lobby() {
 
   const renderPlayers = () =>
     <ul className={styles.playersList}>
-      {players.map(player => (
+      {players && players.map(player => (
         <li key={player}><Avatar shape="square" size="large" icon={<UserOutlined />} /> {player}</li>
       ))}
     </ul>
@@ -76,7 +76,7 @@ function Lobby() {
       { renderPlayers() }
     </Col>
     <Col span={12}>
-    { players.length > 1 &&
+    { players && players.length > 1 &&
       <Countdown seconds={10} minutes={0} callback={createGame}/>
     }
     </Col>
