@@ -37,8 +37,7 @@ function Lobby() {
   }
 
   const receiveGameId = () => {
-    gameChannel.bind('new-game', data => {
-      console.log('data: ', data);
+    players && gameChannel.bind('new-game', data => {
       if(!gameId) {
         setGame({ id: data, players, me: myPlayer })
         gameId = data;
@@ -50,7 +49,6 @@ function Lobby() {
   const addNewPlayerToGame = async () => {
     if(!loading && session) {
       myPlayer = session.user.name
-      console.log('myPlayer: ', myPlayer);
       const response = await addPlayer( myPlayer );
       setPlayers(response)
     }
