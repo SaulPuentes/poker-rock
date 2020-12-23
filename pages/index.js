@@ -1,22 +1,24 @@
 import React from 'react';
-import LogIn from '../components/LogIn';
+import LoginBox from '@components/loginBox/index';
 import { Layout } from 'antd';
-  
-const { Header, Footer, Sider, Content } = Layout;
-
-const contentAttributes = {
-  style: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)'
-  }
-}
 
 export default function index() {
+
+  const { Header, Footer, Sider, Content } = Layout;
+
+  const styles = {
+    content: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)'
+    }
+  }
+
   return (
-    <Content {...contentAttributes} >
-      <LogIn />
+    <Content style={styles.content} >
+      <LoginBox />
     </Content>
   );
+  
 }

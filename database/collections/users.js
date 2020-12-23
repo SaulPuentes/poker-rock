@@ -23,12 +23,22 @@ export const onRead = async (user) => {
         const filter = { _id: mongo.ObjectID(user.id) };
         const result = await mongo.collections.users.findOne(filter);
         if(result != undefined) {
-            user.name = result._name;
+            user.username = result._name;
             user.score = result._score;
             return true;
         }
     }
     return false;
+}
+
+export const validateCredentials = async(user) => {
+    const mongo = await connection();
+    const filter = { _username: user.username };
+    const result = await mongo.collections.users.findOne(filter);
+    if(result != undefined) {
+        return result._password == user.password;
+    }
+    return null;
 }
 
 export const onUpdate = async (user) => {
@@ -55,6 +65,7 @@ export const onDelete = async (user) => {
 export default {
     create: onCreate,
     read: onRead,
+    validateCredentials: validateCredentials,
     update: onUpdate,
     delete: onDelete
 }

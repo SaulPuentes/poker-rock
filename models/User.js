@@ -23,7 +23,7 @@ export default class User {
     }
 
     set username(value) {
-        this._name = value;
+        this._username = value;
     }
 
     get score() {

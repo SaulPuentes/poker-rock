@@ -1,27 +1,11 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-import { LogInUser, createUser } from '../user';
+import collection from '@database/collections/users';
+import User from '@models/User';
 
 // TODO - JSDoc comment this
-const authorizeCredentials = async (credentials) => {
-    const user = LogInUser(credentials.username, credentials.password); // TODO - Call read user function form userController
-    if(user) {
-        return Promise.resolve(user);
-    }
-    else {
-        const newUser = createUser(credentials.username, credentials.password); // TODO - Call create user function form userController
-        if(newUser) {
-            console.log('newUser:' + newUser);
-            return Promise.resolve(newUser);
-        }
-    }
-    console.log('AAAAAAAAAAAA');
-    return Promise.resolve(null);
-};
-
-// TODO - JSDoc comment this
-const providerCredentialOptions = {
-    name: 'Username',
+const credentials = {
+    name: 'Credentials',
     credentials: {
         username: {
             label: "Username",
@@ -34,13 +18,27 @@ const providerCredentialOptions = {
             placeholder: "Password"
         }
     },
-    authorize: authorizeCredentials
+    authorize: async (credentials) => {
+        const user = new User();
+        user.username = credentials.username;
+        user.password = credentials.password;
+        const valid = await collection.validateCredentials(user);
+        if(valid === null) {
+            const created = await collection.create(user);
+            if(created) {
+                return Promise.resolve({name: user.username});
+            }
+        } else if (valid) {
+            return Promise.resolve({name: user.username});
+        }
+        return null;
+    }
 };
 
 // TODO - JSDoc comment this
 const nextAuthOptions = {
     providers: [
-        Providers.Credentials(providerCredentialOptions)
+        Providers.Credentials(credentials)
     ]
 };
 
