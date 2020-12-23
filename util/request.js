@@ -6,9 +6,10 @@ const headers = {
   'sec-fetch-mode': 'cors',
   'sec-fetch-site': 'same-origin'
 }
+const baseURL = process.env.BASE_URL; //http://localhost:3000';
 
 export const addMove = async (params) => {
-  const url = 'http://localhost:3000/api/game/'
+  const url = baseURL+ '/api/game/'
   try {
     const data = await fetch(`${url}`,
       { method: 'PATCH',
@@ -22,8 +23,7 @@ export const addMove = async (params) => {
 }
 
 export const addPlayer = async (player) => {
-  const url = 'http://localhost:3000/api/player/add'
-
+  const url = baseURL + '/api/player/add'; 
   try {
     const data = await fetch(`${url}`,
       { method: 'POST',
@@ -40,7 +40,7 @@ export const addPlayer = async (player) => {
 }
 
 export const apiTodo = async (params) => {
-  const url = 'http://localhost:3000/api/add-task'
+  const url = baseURL + '/api/add-task'
   try {
     const response = await fetch(`${url}`, 
       { method: 'POST',
