@@ -9,6 +9,7 @@ import { gamesRead, movementsAdd } from '@services/requests'
 import { exposeCard, hideCard } from './getPath'
 import CurrentTurn from '@components/currentTurn'
 import MoveButton from '@components/moveButton'
+import WinnerMessage from '@components/winnerMessage'
 import Image from 'next/image'
 
 
@@ -42,7 +43,6 @@ function Game() {
     const response = await gamesRead({
       id: game.id
     })
-    console.log('response: ', response);
     setTable(response.table)
     setGamePlayers(response._players)
     setPlayers(response.table._players)
@@ -73,26 +73,6 @@ function Game() {
   const renderScore = (player) =>
     <Player username={player._user} score={2000}/>
   
-  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  /*
-  if(session.user.name){
-    
-    const renderCards = (player) =>
-    player._cards.map((i,j) =>
-      <th key={j}><Image src ={exposeCard(i)} width={60} height={100}/></th>
-    )
-    console.log("Hola ----------------------------------------------- -")
-  }
-  else{
-    const renderCards = (player) =>
-    player._cards.map((i,j) =>
-      <th key={j}><Image src ={hideCard()} width={60} height={100}/></th>
-    )
-    console.log("Adios ---------------------------------------- -------")
-  }
-  */
-  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  
   const renderCards = (player) =>
     player._cards.map((i,j) =>
       <th key={j}><Image src ={exposeCard(i)} width={60} height={100}/></th>
@@ -118,8 +98,12 @@ function Game() {
 
   //Shows the current players, including the table, and their respective cards
   return ( table && players
-    ? <><Row gutter={[16, 16]} justify="center">
-        <CurrentTurn players={gamePlayers} currentTurnIndex={currentTurnIndex}/>
+    ? <>
+      <Row gutter={[16, 16]} justify="center">
+        { Object.keys(table._winner).length === 0 
+          ? <CurrentTurn players={gamePlayers} currentTurnIndex={currentTurnIndex} />
+          : <WinnerMessage winner={table._winner}/>
+        }
       </Row>
       <Row gutter={[16, 16]}>
         <Col offset={8} span={8}>

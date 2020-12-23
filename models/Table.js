@@ -14,7 +14,7 @@ export default class Table {
     _dealerIndex = 0;
     _currentTurnIndex = 0;
     _bet = 0;
-    _winner = undefined;
+    _winner = {};
 
     
     /**

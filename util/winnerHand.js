@@ -134,8 +134,11 @@ export default function winnerHand(cards, players) {
       i++
   }//End of while for winner hand
   let pw = points.indexOf(Math.max(...points));
-  console.log(`Player wins ${players[pw]._user}, Score:`, Math.max(...points));
-  return pw;
+  let message = `Player wins ${players[pw]._user}, Score: ${Math.max(...points)}`;
+  return {
+      user: players[pw]._user,
+      message
+  };
 
 }//End of Winner Hand
 
