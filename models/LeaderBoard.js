@@ -1,11 +1,10 @@
 import connection from '@database/connection';
 
-
 export default async function handler(req, res) {
     
     // intialize params
     const descending = (req.query.descending != undefined)? (req.query.descending == 'true') : true;
-    const count = (req.query.count != undefined)? parseInt(req.query.count) : 10;
+    const count = (req.query.count != undefined)? parseInt(req.query.count) : 5;
     
     // validate
     if(Number.isNaN(count)) {

@@ -1,5 +1,4 @@
 import connection from '@database/connection';
-import { pusher } from '@util/pusher'
 
 const handleError = (e) => {
     // TODO - handle database error
@@ -24,15 +23,14 @@ export const onRead = async(game) => {
         const filter = { _id: mongo.ObjectID(game.id) };
         const result = await mongo.collections.games.findOne(filter);
         if(result != undefined) {
-            game.players.splice(0, game.players.length);
             //console.log(result)
-             for (const player of result._players) {
-                 game.players.push(player);
-             }
-             game.movements.splice(0, game.movements.length);
-             for (const movement of result._movements) {
-                 game.movements.push(movement);
-             }
+            //  for (const player of result._players) {
+            //      game.players.push(player);
+            //  }
+            //  game.movements.splice(0, game.movements.length);
+            //  for (const movement of result._movements) {
+            //      game.movements.push(movement);
+            //  }
             return result;
         }
     }
@@ -40,20 +38,18 @@ export const onRead = async(game) => {
 }
 
 export const onUpdate = async(game) => {
-    console.log('-------------------------------onUpdate');
+    // console.log('-------------------------------onUpdate');
     const mongo = await connection();
     if(mongo.ObjectID.isValid(game._id)) {
         const filter = { _id: mongo.ObjectID(game._id) };
         
-        //console.log('game.table: ', game.table);
+        // console.log('game: ', game);
 
         const update = {
-            $set: { _players: game.players, _movements: game.movements }
+            $set: { _players: game._players, _movements: game._movements, table: game.table }
         };
         const result = await mongo.collections.games.findOneAndUpdate(filter, update);
-        console.log('result: ', result);
-        console.log('game.movements: ', game.movements);
-        pusher.trigger('poker-rock', 'new-movement', game.movements)
+        // console.log('result: ', result);
         return result != undefined;
     }
     return false;

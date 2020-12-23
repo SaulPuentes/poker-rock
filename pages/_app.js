@@ -5,8 +5,8 @@ import { Provider } from 'next-auth/client'
 export const GameContext = createContext()
 
 const initialGameSeed = {
-  id: '5fe0aff6be4dc43d4286c358',
-  players: ['saulpuentes', 'rafael'],
+  id: '5fe313688c45b52a180993ca',
+  players: ['sebsmgzz', 'rafael', 'saulpuentes'],
   me: 'saulpuentes'
 }
 
