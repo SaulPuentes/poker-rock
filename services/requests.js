@@ -5,7 +5,7 @@ import User from '@models/User';
  * @description The base url where to make the requests.
  * @type {string}
  */
-const baseUrl = process.env.BASE_URL; //'http://localhost:3000';
+const baseUrl = process.env.BASE_URL;
 
 /**
  * @description The default http headers to set for each request.
