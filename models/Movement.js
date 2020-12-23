@@ -11,10 +11,10 @@ export default class Movement {
      */
     static enum = new Enum();
 
-    static RAISE = new Movement('Raise');
-    static CALL = new Movement('Call');
-    static FOLD = new Movement('Fold');
-    static CHECK = new Movement('Check');
+    static RAISE = new Movement('raise');
+    static CALL = new Movement('call');
+    static FOLD = new Movement('fold');
+    static CHECK = new Movement('check');
 
     _value = undefined;
 

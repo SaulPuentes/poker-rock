@@ -16,3 +16,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.ant-spin-dot-item {
+  background-color: white;
+}

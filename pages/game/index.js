@@ -8,8 +8,6 @@ const { Header, Sider, Content } = Layout;
 
 export default function Home() {
 
-  
-
   return (
     <Layout>
       <Header className={styles.header}>
@@ -17,7 +15,7 @@ export default function Home() {
       </Header>
       <Layout>
         <Content className={styles.content}>
-          <Game />
+          <Game/>
         </Content>
         <Sider className={styles.leaderboard}>
           <Leaderboard />
