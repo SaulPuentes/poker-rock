@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-//import {connection} from '@database/connection';
 import { getScores } from '@util/request'
-//import { MongoClient, ObjectID } from 'mongodb';
-//import {handler} from '@models/LeaderBoard';
 import styles from './Leaderboard.module.scss'
 
 export default function Leaderboard() {
-//db.users.find().sort({"score": 1})
+
   const [scores, setScores] = useState();
 
   useEffect( async() => {
+
     /* UPDATE WHEN VALUES CHANGES*/
     const response = await getScores()
     console.log('UPDATE WHEN VALUES CHANGES');
@@ -19,28 +17,21 @@ export default function Leaderboard() {
 
   console.log('scores: ', scores);
 
-  //console.log("maxscores",maxscores);
-
   //Leaderboard update ---------------------------------------------------------------------
   const result = scores.map((a,b) => 
  <tr key={b} target={b}><td>{a.name}</td><td>{a.score}</td></tr> )
-  
-  
   
   return (
   <>
     <div className={styles.titleLeader}>
       <h1>Leaderboard</h1>
-    
       <table>
-      {result}
+        {result}
       </table>
     </div>
   </>
-  )
-
-
-  //End of return
+  )//End of return
+  
 }//End of Leaderboard
 
 
@@ -54,7 +45,6 @@ export default function Leaderboard() {
 
 
 */
-
 
 
 /**
