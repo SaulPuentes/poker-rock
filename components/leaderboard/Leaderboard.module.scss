@@ -1,0 +1,30 @@
+.titleLeader {
+    float: right;
+    /*font-family: 'Playfair Display', serif;*/
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    h1 {
+      color: white;
+      font-size: 24px;
+      text-decoration: underline;
+      text-shadow: 3px 3px 8px #BF7F00, -3px -3px 8px #BF7F00;
+    }
+    tr{
+        font-family: sans;
+    }
+    tr[target="0"]{
+        
+        color: gold;
+        font-size: 18px;
+        text-shadow: 3px 3px 8px #BF7F00, -3px -3px 8px #BF7F00;
+    }
+    tr[target="1"]{
+        color: rgb(151, 148, 148);
+        font-size: 17px;
+        text-shadow: 3px 3px 8px #9b9a99, -3px -3px 8px #9b9a99;
+    }
+    tr[target="2"]{
+        color: rgb(177, 104, 104);
+        font-size: 16px;
+        text-shadow: 3px 3px 8px #745009, -3px -3px 8px #BF7F00;
+    }
+  }

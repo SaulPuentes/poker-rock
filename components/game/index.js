@@ -73,6 +73,26 @@ function Game() {
   const renderScore = (player) =>
     <Player username={player._user} score={2000}/>
   
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  /*
+  if(session.user.name){
+    
+    const renderCards = (player) =>
+    player._cards.map((i,j) =>
+      <th key={j}><Image src ={exposeCard(i)} width={60} height={100}/></th>
+    )
+    console.log("Hola ----------------------------------------------- -")
+  }
+  else{
+    const renderCards = (player) =>
+    player._cards.map((i,j) =>
+      <th key={j}><Image src ={hideCard()} width={60} height={100}/></th>
+    )
+    console.log("Adios ---------------------------------------- -------")
+  }
+  */
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  
   const renderCards = (player) =>
     player._cards.map((i,j) =>
       <th key={j}><Image src ={exposeCard(i)} width={60} height={100}/></th>
